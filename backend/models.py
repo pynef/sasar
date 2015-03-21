@@ -14,29 +14,25 @@ class Categoria(models.Model):
         return '{0}'.format(self.nombre)
 
 
-class Socio(models.Model):
+class Socio(User):
     '''
       Modelos de la clase Socio
       Se relaciona 1:1 con el User
     '''
-    nombres = models.CharField(max_length=64)
-    apellidos = models.CharField(max_length=64)
-    resumen = models.TextField()
-    direccion = models.CharField(max_length=128)
+    resumen = models.TextField(blank=True, null=True)
+    direccion = models.CharField(max_length=128,blank=True, null=True)
     dni = models.CharField(max_length=8, unique=True)
-    fecha_nacimiento = models.DateField()
-    ocupacion = models.CharField(max_length=64)
-    residencia = models.CharField(max_length=128)
-    email = models.EmailField(max_length=64)
-    is_active = models.BooleanField()
-    picture = models.ImageField(upload_to="uploads/",
-                                default='default/company.png')
-    categoria = models.ForeignKey(Categoria)
+    fecha_nacimiento = models.DateField(blank=True, null=True)
+    ocupacion = models.CharField(max_length=64,blank=True, null=True)
+    residencia = models.CharField(max_length=128,blank=True, null=True)
+    picture = models.ImageField(upload_to="Personal/",
+                                default='default/company.png',blank=True, null=True)
+    categoria = models.ForeignKey(Categoria,blank=True, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '{0}'.format(self.nombres)
+        return '{0}'.format(self.dni)
 
 
 class Apertura(models.Model):
@@ -48,7 +44,7 @@ class Apertura(models.Model):
     saldo_anterior = models.DecimalField(decimal_places=2, max_digits=6)
     monto_apertura = models.DecimalField(decimal_places=2, max_digits=6)
     temporada = models.IntegerField()
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -64,7 +60,7 @@ class Ingreso(models.Model):
     recibo = models.CharField(max_length=64)
     socio = models.ForeignKey(Socio)
     monto = models.DecimalField(decimal_places=2, max_digits=6)
-    apertura = models.ForeignKey(Socio)
+    apertura = models.ForeignKey(Apertura)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -81,7 +77,7 @@ class Egreso(models.Model):
     concepto = models.CharField(max_length=64)
     socio = models.ForeignKey(Socio)
     monto = models.DecimalField(decimal_places=2, max_digits=6)
-    apertura = models.ForeignKey(Socio)
+    apertura = models.ForeignKey(Apertura)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -95,7 +91,7 @@ class JuntaDirectiva(models.Model):
        de una determinada apertura
     '''
     socio = models.ForeignKey(Socio)
-    apertura = models.ForeignKey(apertura)
+    apertura = models.ForeignKey(Apertura)
 
     def __str__(self):
         return '{0}'.format(self.socio)

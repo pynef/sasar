@@ -1,0 +1,49 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Nefi">
+    <link rel="shortcut icon" href="{% static 'img/logo/icono.png' %}">
+
+    <title>Administracion de los avelinos "Sasar"</title>
+
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" />
+    <link href="{% static 'bootstrap/css/justified-nav.css' %}" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="masthead">
+        <img src="{{MEDIA_URL}}default/company2.jpg"  alt="First slide" />
+        <nav>
+          <ul class="nav nav-justified navbar-inverse">            
+            <li class="active"><a href="/home">Pagina Web</a></li>
+            <li><a href="/panel">Panel</a></li>
+            <li><a href="/panel/profile">Profile</a></li>
+            <li><a href="/panel/clave">Cambiar contraseña</a></li>
+            <li><a href="#">Reportes</a></li>
+            <li><a href="/logout">Salir</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="jumbotron row">
+        {% block contenido %}
+        {% endblock contenido %}
+      </div>
+      <footer class="footer">
+        <p>&copy; Avelinos Sasar 2015</p>
+      </footer>
+
+    </div>
+  </body>
+</html>

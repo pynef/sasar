@@ -1,0 +1,49 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Nefi">
+
+    <title>Sasar Avelinos | Login </title>
+
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" />
+    <link href="{% static 'bootstrap/css/signin.css' %}" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      {% if user.is_authenticated %}
+          <meta http-equiv='refresh' content='0.5; url=/'>"
+      {% else %}
+      <div class="row logeo">
+        <div class="col-lg-3"></div>
+            <div class="col-lg-7 login">
+              <div class="row">
+                <img class="col-lg-4" src="{% static 'img/logo/logo.png' %}" />
+                <form class="form-signin col-lg-8" role="form" method="POST" action="">{% csrf_token %}
+                  <h2 class="form-signin-heading text-primary text-center">Ingresar al Sistema</h2>
+                  <hr class="featurette-divider">
+                  <label for="username">Usuario</label>
+                  <input name="username" type="text" class="form-control" placeholder="username" required autofocus><br/>
+                  <label for="password">Contraseña</label>
+                  <input name="password" type="password" class="form-control" placeholder="contraseña" required>
+                  <br/><button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+                </form>
+              </div>
+            </div>
+        <div class="col-lg-2"></div>
+      </div>
+      {% endif %}
+
+    </div>
+
+  </body>
+</html>
