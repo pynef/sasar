@@ -43,7 +43,9 @@ class Apertura(models.Model):
     '''
     saldo_anterior = models.DecimalField(decimal_places=2, max_digits=6)
     monto_apertura = models.DecimalField(decimal_places=2, max_digits=6)
-    temporada = models.IntegerField()
+    temporada = models.CharField(max_length=128, default="temporada 2014")
+    incio = models.DateField()
+    fin = models.DateField()
     is_active = models.BooleanField(default=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
