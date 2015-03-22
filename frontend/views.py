@@ -31,16 +31,16 @@ def socio(request,dni):
 
 def index(request):
     if request.user.is_authenticated() :
-    	print "logeado"
+        print "logeado"
         if request.user.groups.filter(name='administracion'):
             return HttpResponseRedirect('/administrador/')
         elif request.user.groups.filter(name='backend'):
             return HttpResponseRedirect('/panel/')
         elif request.user.groups.filter(name='frontend'):
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/home/')
         else:
             return HttpResponseRedirect('/logout')
             print "salir no usuario"
     else:
-    	print "no logeado"
-        return HttpResponseRedirect('/home/ ')
+        print "no logeado"
+        return HttpResponseRedirect('/home/')

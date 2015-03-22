@@ -1,0 +1,34 @@
+{% extends 'backend/base.html' %}
+{% load staticfiles %}
+{% block contenido %}
+
+  <div class="row">
+    <div class="reportes-generales tabla-responsive col-lg-12">
+      <table class="table table-hover">
+        <tr>
+          <th>Portada</th>
+          <th>DNI</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Ocupacion</th>
+          <th>Ver más</th>
+        </tr>
+        {% for item in junta_directiva %}
+        <tr>
+            <td>{{item.socio.picture }}</td>
+            <td>{{item.socio.dni }}</td>
+            <td>{{item.socio.first_name }}</td>
+            <td>{{item.socio.last_name }}</td>
+            <td>{{item.socio.ocupacion }}</td>
+            <td>
+              <a class="" href="{% url 'socio' item.socio.dni %}">mas></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+      
+    </div>
+  </div>
+  <br/><br/><br/>
+
+{% endblock contenido %}
