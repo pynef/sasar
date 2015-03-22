@@ -1,17 +1,72 @@
 {% extends 'backend/base.html' %}
 {% load staticfiles %}
 {% block page_title %}
-    Aperuta de año <small>Aperturar un nuevo año</small> 
+    Temporadas <small>Gestion de Aperturas</small> 
 {% endblock page_title %}
 
 {% block contenido %}          
-   <div class="box">
+   <div class="box box-primary">
       <header class="box-header">
-        <h3></h3>
+        <h3>
+            Ultima Apertura <strong> {{temporada.temporada}}</strong>
+            {% if temporada.is_active %}
+                <small class="label pull-right bg-green">ACTIVA</small>
+            {% else %}
+                <small class="label pull-right bg-red">INACTIVA</small>
+            {% endif %}
+        </h3>
+        <h4> del: <small> {{temporada.inicio}} </small> al: <small> {{temporada.inicio}} </small>  </h4>
+        <h4> Monto de Apertura : <small> S/. {{temporada.monto_apertura}}</small> </h4>
+        <h4> Saldo remanente : <small> S/. {{temporada.saldo}}</small> </h4>
       </header>
+      <section class="box-body">
+        {% if temporada.is_active %}
+        <form class="finTemporadaForm" action="{% url 'cierre_temporada' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="apertura_id" value="{{temporada.id}}">
+            <input type="submit" class="btn btn-big btn-primary" value="Terminar Temporada" >
+        </form>
+        {% endif %}
+      </section>
+   </div>
+   <div class="box box-danger">
+      <header class="box-header">
+            <h4> Aperturar nueva Temporada</h4>
+      </header>
+      <section class="box-body">        
+        {% if temporada.is_active %}
+            <p> No se puede Realizar una nueva  apertura, mientras exista una activa.</p>
+        {% else %}
+            <div class="row">
+                <form name="aperturaForm" action="" method="post" class="col-md-6">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <p> 
+                        <input type="submit" class="btn btn-large btn-success" value="Crear Apertura">
+                    </p>
+
+                </form>
+                <div class="col-md-6">
+
+                </div>
+            </div>
+        {% endif %}
+      </section>
       <section class="box-body"></section>
    </div>
 {% endblock contenido %}
+
+{% block scripts %}
+    <script src="{% static 'plugins/input-mask/jquery.inputmask.js' %}" type="text/javascript"></script>
+    <script src="{% static 'plugins/input-mask/jquery.inputmask.date.extensions.js' %}" type="text/javascript"></script>
+    <script src="{% static 'plugins/input-mask/jquery.inputmask.extensions.js' %}" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".data-input").inputmask();
+        });
+    </script>
+{% endblock scripts %}
 
 {% block breadcrumb %}
     <li><a href="/administracion"><i class="fa fa-dashboard"></i> Home</a></li>

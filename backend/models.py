@@ -41,10 +41,10 @@ class Apertura(models.Model):
       un socio puede tener varias cuentas
       una cuenta solo tiene un socio
     '''
-    saldo_anterior = models.DecimalField(decimal_places=2, max_digits=6)
-    monto_apertura = models.DecimalField(decimal_places=2, max_digits=6)
+    saldo_anterior = models.DecimalField(decimal_places=2, max_digits=6, default=0)
+    monto_apertura = models.DecimalField(decimal_places=2, max_digits=6, default=0)
     temporada = models.CharField(max_length=128, default="temporada 2014")
-    incio = models.DateField()
+    inicio = models.DateField()
     fin = models.DateField()
     is_active = models.BooleanField(default=True)
     create_at = models.DateTimeField(auto_now_add=True)
@@ -52,6 +52,18 @@ class Apertura(models.Model):
 
     def __str__(self):
         return '{0}'.format(self.temporada)
+
+    def saldo_remanente(self):
+        ingresos = Ingreso.objects.filter(apertura= self)
+        egresos = Egreso.objects.filter(apertura= self)
+        total = self.saldo_anterior
+        for i in ingresos:
+            total = total + i.monto
+        for e in egresos:
+            total = total - e.monto
+        return total
+
+    saldo = property(saldo_remanente)
 
 
 class Ingreso(models.Model):
