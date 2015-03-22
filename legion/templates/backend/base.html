@@ -17,6 +17,9 @@
          folder instead of downloading all of them to reduce the load. -->
     <link href="{% static 'dist/css/skins/_all-skins.min.css' %}" rel="stylesheet" type="text/css" />
 
+    {% block style %}
+
+    {% endblock style %}
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -116,17 +119,17 @@
           <ul class="sidebar-menu">
             <li class="header">MENU</li>
             <li>
-              <a href="../widgets.html">
+              <a href="{% url 'perfil' %}">
                 <i class="fa fa-user"></i> <span>Perfil</span>
               </a>
             </li>
             <li>
-              <a href="../widgets.html">
+              <a href="{% url 'password_reset' %}">
                 <i class="fa fa-th"></i> <span>Cambiar contraseña</span>
               </a>
             </li>
             <li>
-              <a href="../widgets.html">
+              <a href="{% url 'junta_directiva' %}">
                 <i class="fa fa-th"></i> <span>Junta Directiva</span>
               </a>
             </li>
