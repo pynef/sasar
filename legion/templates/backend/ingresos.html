@@ -1,0 +1,87 @@
+{% extends 'backend/base.html' %}
+{% load staticfiles %}
+{% block page_title %}
+    Ingresos <small>Gestion de Pagos de Socios</small> 
+{% endblock page_title %}
+
+{% block contenido %}          
+   <div class="box box-primary">
+      <header class="box-header">
+        <h3>
+            Monto de Temporada  <strong> {{apertura.monto_apertura}}</strong> soles.
+        </h3>
+      </header>
+      <section class="box-body"></section>
+   </div>
+   <div class="box box-success">
+      <header class="box-header">
+            <h4>Pago de un Socio</h4>
+      </header>
+      <section class="box-body">        
+            <div class="row">
+              <form name="" action="" method="post" class="col-md-5">{% csrf_token %}
+                  <p>
+                    <label for="id_monto_apertura">N° de Recibo:</label>
+                    <input type="text" name="recibo" id="id_recibo" class="form-control" />
+                  </p>
+                  <p>
+                    <label for="id_temporada">Nombre de Socio:</label>
+                    <input type="text" name="socio" id="id_socio" class="form-control" />
+                  </p>
+                  <p>
+                    <label for="id_inicio">Monto a Pagar:</label>
+                    <input type="number" name="monto" id="id_monto" class="form-control" />
+                  </p>
+                  <p>
+                    <input type="hidden" name="apertura" id="id_apertura" value="{{apertura.id}}"/>
+                  </p>
+                  <p> 
+                    <input type="submit" class="btn btn-large btn-success" value="Ingresar Pago">
+                  </p>
+
+                </form>
+                <div class="col-md-7">
+<div class="box">
+  <div class="box-header">
+    <h3 class="box-title">Ultimos Pagos</h3>
+    <div class="box-tools">
+      <div class="input-group">
+        <!--<input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search">
+        <div class="input-group-btn">
+          <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+        </div>-->
+      </div>
+    </div>
+  </div><!-- /.box-header -->
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <tbody><tr>
+        <th>N° de Recibo</th>
+        <th>Socio</th>
+        <th>Monto Pagado</th>
+        <th>Fecha</th>
+      </tr>
+      {% for pagos in ultimos_pagos %}
+      <tr>
+        <td>
+          <p class="text-primary">
+            {{pagos.recibo}}
+          </p>
+        </td>
+        <td>{{pagos.socio}}</td>
+        <td>
+          <span class="badge bg-light-blue">
+            {{pagos.monto}} soles
+          </span>
+        </td>
+        <td>{{pagos.create_at}}</td>
+      </tr>
+      {% endfor %}
+    </tbody></table>
+  </div><!-- /.box-body -->
+</div>
+                </div>
+            </div>
+      </section>
+   </div>
+{% endblock contenido %}

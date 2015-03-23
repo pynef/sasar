@@ -33,7 +33,7 @@ def index(request):
     if request.user.is_authenticated() :
         print "logeado"
         if request.user.groups.filter(name='administracion'):
-            return HttpResponseRedirect('/administrador/')
+            return HttpResponseRedirect('/administracion/')
         elif request.user.groups.filter(name='backend'):
             return HttpResponseRedirect('/panel/')
         elif request.user.groups.filter(name='frontend'):

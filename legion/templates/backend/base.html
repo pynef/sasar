@@ -89,7 +89,7 @@
                       <a href="#" class="btn btn-default btn-flat">Perfil</a>
                     </div>
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Salir</a>
+                      <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Salir</a>
                     </div>
                   </li>
                 </ul>
@@ -134,8 +134,18 @@
               </a>
             </li>
             <li>
-              <a href="/administrador/apertura">
+              <a href="{% url 'temporada' %}">
                 <i class="fa fa-th"></i> <span>Apertura</span>
+              </a>
+            </li>
+             <li>
+              <a href="{% url 'ingreso' %}">
+                <i class="fa fa-th"></i> <span>Pago de Socio</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'egresos' %}">
+                <i class="fa fa-th"></i> <span>Pagos de Actividades</span>
               </a>
             </li>
             <li class="treeview">
