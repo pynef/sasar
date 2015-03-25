@@ -20,3 +20,7 @@ urlpatterns = patterns('',
     url(r'^panel/clave/done$','django.contrib.auth.views.password_change_done',
         {'template_name': 'registration/password_done.html'}, name="password_change_done"),
 )
+urlpatterns += patterns('',
+        (r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.MEDIA_ROOT}),
+        (r'^static/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.STATIC_ROOT}),
+)

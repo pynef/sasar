@@ -1,22 +1,19 @@
 {% extends 'backend/base.html' %}
 {% load staticfiles %}
 {% block page_title %}
-    Ingresos <small>Gestion de Pagos de Socios</small> 
+    <small>Gestion de Gastos</small> 
 {% endblock page_title %}
 
 {% block contenido %}          
    <div class="box box-primary">
       <header class="box-header">
         <h3>
-            Monto de Temporada  <strong> {{apertura.monto_apertura}}</strong> soles.
+            Pagos de Egresos
         </h3>
       </header>
       <section class="box-body"></section>
    </div>
    <div class="box box-success">
-      <header class="box-header">
-            <h4>Pago de un Socio</h4>
-      </header>
       <section class="box-body">        
             <div class="row">
               <form name="" action="" method="post" class="col-md-5">{% csrf_token %}
