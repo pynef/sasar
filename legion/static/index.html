@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fancybox Onload Example</title>
+<style>
+#page {
+    width: 980px;
+    margin: 0 auto;
+}
+#header {
+    height: 100px;
+	border:1px solid #CCCCCC;
+	margin-bottom:10px;
+	text-align:center;
+}
+#content {
+    width: 100%;
+    float: left;
+}
+
+.banner { position: relative; overflow: auto; }
+.banner li { list-style: none; }
+.banner ul li { float: left; }
+
+#footer {
+    border: 1px solid #CCCCCC;
+    float: left;
+    height: 50px;
+    margin-top: 10px;
+    padding: 10px;
+    width: 960px;
+}
+@media screen and (max-width: 980px) {
+
+    #page { width: 100%; }
+    #content { width: 100%; }
+}
+
+@media screen and (max-width: 700px) {
+
+    #content, #footer {
+        width: auto;
+        float: none;
+	height:auto;
+    }
+	
+    #header h1 {
+            font-size:small;
+    }
+}
+</style>
+<!--[if lt IE 9]>
+<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+<![endif]-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.fancybox.js?v=2.1.5"></script>
+<link rel="stylesheet" type="text/css" href="css/jquery.fancybox.css?v=2.1.5" media="screen" />
+</head>
+
+<body>
+<div id="page">
+    <div id="header">
+    	<h1>Fancybox Onload Example</h1>
+    </div>
+    <div id="content">
+        <p><a href="#popup" class="fancybox">Abrir de nuevo</a></p>
+        <div id="popup" style="display:none; width:560px;">
+            <h2>Contenido Fancybox</h2>
+            <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.</p>
+        </div>	
+    </div>
+
+    <div id="footer">
+    	<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FBlog-Jose-Aguilar-Desarrollo-Web%2F269898786396364&send=false&layout=standard&width=450&show_faces=false&font=lucida+grande&colorscheme=light&action=like&height=35&appId=283652475068166" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe>
+    </div>
+</div>
+<script>
+$(document).ready(function () {
+    $(".fancybox").fancybox();
+    $(".fancybox").trigger('click');
+});
+</script>
+</body>
+</html>

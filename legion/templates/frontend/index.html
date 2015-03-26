@@ -1,5 +1,54 @@
 {% extends 'frontend/base.html' %}
 {% load staticfiles %}
+{% block style %}
+<style>
+#page {
+    width: 980px;
+    margin: 0 auto;
+}
+#header {
+    height: 100px;
+  border:1px solid #CCCCCC;
+  margin-bottom:10px;
+  text-align:center;
+}
+#content {
+    width: 100%;
+    float: left;
+}
+
+.banner { position: relative; overflow: auto; }
+.banner li { list-style: none; }
+.banner ul li { float: left; }
+
+#footer {
+    border: 1px solid #CCCCCC;
+    float: left;
+    height: 50px;
+    margin-top: 10px;
+    padding: 10px;
+    width: 960px;
+}
+@media screen and (max-width: 980px) {
+
+    #page { width: 100%; }
+    #content { width: 100%; }
+}
+
+@media screen and (max-width: 700px) {
+
+    #content, #footer {
+        width: auto;
+        float: none;
+  height:auto;
+    }
+  
+    #header h1 {
+            font-size:small;
+    }
+}
+</style>
+{% endblock style %}
 {% block contenido %}
   <div class="row">
 
@@ -10,7 +59,7 @@
             <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
           </div>
 
-          <iframe class="col-lg-4"height="350px" src="https://www.youtube.com/embed/_Qg_29ciQUE" frameborder="0" allowfullscreen></iframe>
+          <iframe class="col-lg-4" height="350px" src="https://www.youtube.com/embed/_Qg_29ciQUE" frameborder="0" allowfullscreen></iframe>
 
           <div class="col-lg-4">
             <img src="{% static 'img/noticias/avelino.png' %}" alt="Generic placeholder image" style="width: 140px; height: 170px;">
@@ -45,6 +94,18 @@
         </div>
     </div>
 </div>
+    <div id="content row">
+        <p><a href="#popup" class="fancybox">Abrir de nuevo</a></p>
+        <div id="popup" style="display:none; width:560px;">
+            <img class="col-lg-12" src="{% static 'img/noticias/fiesta270315.jpg' %}" alt="..." />
+        </div>  
+    </div>
 {% endblock contenido %}
 {% block script %}
+<script>
+$(document).ready(function () {
+    $(".fancybox").fancybox();
+    $(".fancybox").trigger('click');
+});
+</script>
 {% endblock script %}
