@@ -25,12 +25,29 @@
           </div>
 
       </div>
-      <div class="row">
-                <img class="col-lg-5" src="{% static 'img/noticias/fiesta270315.jpg' %}" />
-
-              <div class="col-lg-7">
+      <div class="row container">
+              <div class="col-lg-6">
+                  <a href="#" class="thumbnail" data-toggle="modal" data-target="#lightbox"> 
+                      <img id="noticia" src="{% static 'img/noticias/fiesta270315.jpg' %}" alt="..." />
+                  </a>
+              </div>
+              <!--
+              <img id="noticia" class="col-lg-6" src="{% static 'img/noticias/fiesta270315.jpg' %}" />
+              -->
+              <div class="col-lg-6">
                 <h2>Leer</h2>
                 <p>Este mensaje y sus adjuntos se dirigen exclusivamente a su destinatario, puede contener información privilegiada o confidencial y es para uso exclusivo de la persona o entidad de destino. Si no es usted. el destinatario indicado, queda notificado de que la lectura, utilización, divulgación y/o copia sin autorización puede estar prohibida en virtud de la legislación vigente. Si ha recibido este mensaje por error, le rogamos que nos lo comunique inmediatamente por esta misma vía y proceda a su destrucción.</p>
               </div>
       </div>
+</div>
+<div id="lightbox" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <button type="button" class="close hidden" data-dismiss="modal" aria-hidden="true">×</button>
+        <div class="modal-content">
+            <div class="modal-body">
+                <img class="col-lg-12" src="{% static 'img/noticias/fiesta270315.jpg' %}" alt="..." />
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock contenido %}
