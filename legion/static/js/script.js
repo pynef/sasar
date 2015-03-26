@@ -1,5 +1,4 @@
-$(document).ready(function() {
-    var $lightbox = $('#lightbox');    
+$(document).ready(function() { 
     $('[data-target="#lightbox"]').on('click', function(event) {
         var $img = $(this).find('img'), 
             src = $img.attr('src'),
