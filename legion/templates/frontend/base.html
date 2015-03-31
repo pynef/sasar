@@ -54,6 +54,8 @@
                   </ul>
                 </li>
                 {% if user.is_authenticated %}
+                {{usuario.gro}}
+                    <li class=""><a href="{% url 'index' %}">Ingresar al Sistema</a></li>
                     <li class=""><a href="{% url 'logout' %}">Salir</a></li>
                 {% else %}
                 <li class=""><a href="/login">Login</a></li>

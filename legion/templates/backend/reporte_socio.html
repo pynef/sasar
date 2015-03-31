@@ -1,0 +1,50 @@
+{% extends 'backend/base.html' %}
+{% load staticfiles %}
+{% block contenido %}
+    <form  method='post' action='.' class="row" role="form" enctype="multipart/form-data">{% csrf_token %}
+        <p class="col-lg-6">
+          <label for="id_nombre">Nombre Socio:</label>
+          <select name="socio" id="id_socio" class="form-control">
+            {% for socio in socios %}
+              <option value="{{socio.id}}" >{{socio.first_name}} {{socio.last_name}}</option>
+            {% endfor %}
+          </select>
+        </p>
+          <div class="col-lg-6" style="margin-top:1%;">
+            <button class="btn btn-success btn-lg" type="submit">Buscar los Pagos</button>
+          </div>
+      </form>
+  <hr/>
+  <h3 class="text-center text-info">MONTOS PAGADOS</h3>
+  <div class="row">
+    <div class="reportes-generales tabla-responsive col-lg-12">
+      <table class="table table-hover">
+        <tr class="cabecera_reportes">
+          <th>N° RECIBO</th>
+          <th>NOMBRE</th>
+          <th>APELLIDOS</th>
+          <th>MONTO</th>
+          <th>FECHA</th>
+        </tr>
+        {% for i in reportes %}
+        <tr>
+          <th>{{i.recibo}}</th>
+          <th>{{i.socio.first_name}}</th>
+          <th>{{i.socio.last_name}}</th>
+          <th>{{i.monto}}</th>
+          <th>{{i.update_at}}</th>
+        </tr>
+        {% endfor %}
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th><p class="text-primary">{{total}}</p></th>
+          <th><p class="text-primary">TOTAL</p></th>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+
+{% endblock contenido %}

@@ -1,0 +1,29 @@
+{% extends 'backend/base.html' %}
+{% load staticfiles %}
+{% block contenido %}
+  <hr/>
+  <h3 class="text-center text-info">REPORTES DE INGRESOS</h3>
+  <div class="row">
+    <div class="reportes-generales tabla-responsive col-lg-12">
+      <table class="table table-hover">
+        <tr class="cabecera_reportes">
+          <th>N° RECIBO</th>
+          <th>NOMBRE</th>
+          <th>APELLIDOS</th>
+          <th>MONTO</th>
+          <th>FECHA</th>
+        </tr>
+        {% for i in egresos %}
+        <tr>
+          <th>{{i.recibo}}</th>
+          <th>{{i.socio.first_name}}</th>
+          <th>{{i.socio.last_name}}</th>
+          <th>{{i.monto}}</th>
+          <th>{{i.update_at}}</th>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+  </div>
+{% endblock contenido %}

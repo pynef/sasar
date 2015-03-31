@@ -1,5 +1,12 @@
 {% extends 'backend/base.html' %}
 {% load staticfiles %}
+{% block style %}
+<style type="text/css">
+p{
+	text-align: justify;
+}
+</style>
+{% endblock style %}
 {% block contenido %}          
     <h1 class="cover-heading"> RESUMEN DE {{usuario.first_name|upper}}</h1>
     <p class="lead">{{usuario.resumen}}</p>

@@ -25,14 +25,29 @@ class Socio(User):
     fecha_nacimiento = models.DateField(blank=True, null=True)
     ocupacion = models.CharField(max_length=64,blank=True, null=True)
     residencia = models.CharField(max_length=128,blank=True, null=True)
-    picture = models.ImageField(upload_to="Personal/",
-                                default='default/company.png',blank=True, null=True)
+    picture = models.ImageField(upload_to="Socios/",
+                                default='default/avatar.png',blank=True, null=True)
     categoria = models.ForeignKey(Categoria,blank=True, null=True)
+    video = models.FileField(upload_to="VideoSocio",blank=True, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return '{0}'.format(self.dni)
+
+
+class GaleriaFotos(models.Model):
+    '''
+    Galeria de Fotos donde se almacenerara
+    de cada socio
+    '''
+    nombre = models.ImageField(upload_to="GaleriaFotos/",blank=True, null=True)
+    titulo= models.CharField(max_length=128,blank=True, null=True)
+    descripcion= models.TextField(blank=True, null=True)
+    socio = models.ForeignKey(Socio)
+
+    def __str__(self):
+        return '{0}'.format(self.nombre)
 
 
 class Apertura(models.Model):

@@ -1,0 +1,60 @@
+{% extends 'backend/base.html' %}
+{% load staticfiles %}
+{% block contenido %}
+
+  <div class="row">
+    <div class="reportes-generales tabla-responsive col-lg-8">
+      <table class="table table-hover">
+        <tr>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Descripcion</th>
+          <th>Editar</th>
+          <th>Borrar</th>
+        </tr>
+        {% for item in imagenes %}
+        <tr>
+      <td>
+          <img id="image_directiva" src="{{MEDIA_URL}}{{item.nombre}}" />
+      </td>
+      <td>{{item.titulo }}</td>
+      <td>{{item.descripcion }}</td>
+    <td class="edit">
+      <a class="" href="{% url 'edit_galeria_imagenes' item.id %}">
+        EDITAR
+      </a>
+    </td>
+    <td class="edit">
+      <a href="{% url 'borrar_galeria_imagenes' item.id %}">
+        BORRAR
+      </a>
+    </td>
+    </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <div class="col-lg-4">
+      <h3 class="text-center text-info">INGRESAR IMAGEN A LA GALERIA DE IMAGENES</h3><hr/>
+      <form  method='post' action='' role="form" enctype="multipart/form-data">{% csrf_token %}
+          <p>
+            <label for="id_nombre">Nombre:</label>
+            <input type="file" name="nombre" id="id_nombre" class="form-control" />
+          </p>
+          <p>
+            <label for="id_titulo">Titulo:</label>
+            <input type="text" name="titulo" id="id_titulo" class="form-control" />
+          </p>
+          <p>
+            <label for="id_descripcion">Descripcion</label>
+            <textarea name="descripcion" id="id_descripcion" class="form-control"></textarea>
+          </p>
+          <input type="hidden" name="socio" id="id_socio" value="{{usuario.id}}" class="form-control" />
+            <div class="row">
+              <span class="col-lg-6"></span>
+              <button class="col-lg-5 btn btn-success btn-lg" type="submit">Guardar</button>
+            </div>        
+        </form>
+      </div>
+    </div>
+
+{% endblock contenido %}

@@ -1,7 +1,7 @@
 {% extends 'backend/base.html' %}
 {% load staticfiles %}
-{% block contenido %}
 
+{% block contenido %}
   <div class="row">
     <div class="reportes-generales tabla-responsive col-lg-12">
       <table class="table table-hover">
@@ -15,13 +15,15 @@
         </tr>
         {% for item in junta_directiva %}
         <tr>
-            <td>{{item.socio.picture }}</td>
+            <td>
+                <img id="image_directiva" src="{{MEDIA_URL}}{{item.socio.picture}}" />
+            </td>
             <td>{{item.socio.dni }}</td>
             <td>{{item.socio.first_name }}</td>
             <td>{{item.socio.last_name }}</td>
             <td>{{item.socio.ocupacion }}</td>
             <td>
-              <a class="" href="{% url 'socio' item.socio.dni %}">mas></a>
+              <a class="btn btn-info" href="{% url 'socio' item.socio.dni %}">más info</a>
             </td>
         </tr>
         {% endfor %}

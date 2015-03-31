@@ -4,3 +4,12 @@
 #noticia{
 	border-radius: 35px;
 }
+#image_directiva{
+	width: 120px;
+	height: 120px;
+}
+.cabecera_reportes{
+	font-weight: bold;
+	font-size: 16pt;
+}
+	

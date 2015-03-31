@@ -107,6 +107,7 @@ body {
   padding: 15px;
   color: #444;
   border-top: 1px solid #eee;
+  margin-top: 10px;
 }
 /* Fixed layout */
 .fixed .main-header,

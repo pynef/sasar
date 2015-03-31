@@ -1,0 +1,31 @@
+{% extends 'backend/base.html' %}
+{% load staticfiles %}
+{% block contenido %}
+		<video class="col-lg-6" controls>
+		  <source src="{{MEDIA_URL}}{{usuario.video}}" type="video/mp4">
+			Video
+		</video>
+		<form class="col-lg-5" method='post' action='' role="form" enctype="multipart/form-data">{% csrf_token %}
+			<h3 class="text-center text-info">MODIFICAR VIDEO</h3>
+			<table>
+				<tbody>
+					<tr>
+						<th>
+							<label>Video:</label>
+						</th>
+						<td>
+		      				{{formulario.video}}
+		      			</td>
+	      			</tr>
+	      			<tr>
+	      				<th>
+
+	      				</th>
+	      				<td>
+	      				<br/><button class="btn btn-success btn-lg btn-block" type="submit">Guardar</button>
+	      				</td>
+	      			</tr>
+	      		</tbody>
+	      	</table>
+	    </form>
+{% endblock contenido %}
