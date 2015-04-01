@@ -12,4 +12,10 @@
 	font-weight: bold;
 	font-size: 16pt;
 }
-	
+#image_socios{
+	width: 100px;
+	height: 100px;
+}
+#info-socios .texto-center{
+	padding-top: 4%;
+}

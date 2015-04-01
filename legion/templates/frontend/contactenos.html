@@ -1,0 +1,25 @@
+{% extends 'frontend/base.html' %}
+{% load staticfiles %}
+{% block script %}<script type="text/javascript">
+$(document).ready(function(){$("#contactenos").addClass("active")});
+</script>{% endblock script %}
+{% block contenido %}
+
+  <div class="row">
+    <form>
+      <fieldset>
+        <legend class="text-success text-center">Datos para enviar Formulario</legend>
+        <label>Nombre:</label>
+        <input type="text" name="nombre" class="form-control">
+        <label>Correo:</label>
+        <input type="email" name="email" class="form-control  ">
+        <label>Descripción:</label>
+        <textarea name="descripcion" class="form-control  "></textarea>
+      </fieldset><br/>
+      <button class="btn btn-success btn-lg">
+        Enviar
+      </button>
+    </form>
+  </div>
+<br/><br/><br/><br/>
+{% endblock contenido %}

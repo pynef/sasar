@@ -13,13 +13,29 @@ def inicio(request):
 def home(request):
     return render(request,'frontend/index.html')
 
-def nosotros(request):
+def contactenos(request):
+    return render(request,'frontend/contactenos.html')
+
+def reglamentos(request):
+    return render(request,'frontend/reglamentos.html')
+
+def estatutos(request):
+    return render(request,'frontend/estatutos.html')
+
+def informes(request):
+    return render(request,'frontend/informes.html')
+
+def periodismo(request):
+    return render(request,'frontend/periodismo.html')
+
+
+def socios(request):
     usuarios = Socio.objects.all()
     print usuarios
     cntxt={
         'usuarios':usuarios,
     }
-    return render(request,'frontend/nosotros.html',cntxt)
+    return render(request,'frontend/socios.html',cntxt)
 
 def socio(request,dni):
     usuario = Socio.objects.get(username=request.user.username)

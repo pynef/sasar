@@ -38,19 +38,19 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="#">Inicio</a></li>
-                <li><a href="/nosotros">Socios</a></li>
-                <li><a href="#contact">Contactenos</a></li>
-                <li class="dropdown">
+                <li id="home"><a href="/home">Inicio</a></li>
+                <li id="socios"><a href="{% url 'socios' %}">Socios</a></li>
+                <li id="contactenos"><a href="{% url 'contactenos' %}">Contactenos</a></li>
+                <li id="informe" class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Informes <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Reglamento</a></li>
-                    <li><a href="#">Estatutos</a></li>
-                    <li><a href="#">Informes</a></li>
+                    <li id="reglamentos"><a href="{% url 'reglamentos' %}">Reglamento</a></li>
+                    <li id="estatutos"><a href="{% url 'estatutos' %}">Estatutos</a></li>
+                    <!--<li id="informes"><a href="{% url 'informes' %}">Informes</a></li>-->
                     <li class="divider"></li>
                     <li class="dropdown-header">Mas info</li>
-                    <li><a href="#">Galería de Imagenes</a></li>
-                    <li><a href="#">Periodismo</a></li>
+                    <!--<li><a href="#">Galería de Imagenes</a></li>-->
+                    <li><a href="{% url 'periodismo' %}">Periodismo</a></li>
                   </ul>
                 </li>
                 {% if user.is_authenticated %}
@@ -102,7 +102,7 @@
       <footer>
          <div class="mastfoot">
             <div class="inner">
-              <p>copyright <a href="">SarRoque</a>, de <a href="">.</a>.</p>
+              <p>copyright <a href="">SanRoque</a>, de <a href="">Avelinos</a>.</p>
             </div>
           </div>
       </footer>

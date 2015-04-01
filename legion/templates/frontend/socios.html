@@ -1,0 +1,39 @@
+{% extends 'frontend/base.html' %}
+{% load staticfiles %}
+{% block script %}<script type="text/javascript">
+$(document).ready(function(){$("#socios").addClass("active")});
+</script>{% endblock script %}
+{% block contenido %}
+
+  <div class="row">
+    <div class="reportes-generales tabla-responsive col-lg-12">
+      <table class="table table-hover">
+        <tr>
+          <th>Portada</th>
+          <th>DNI</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Ocupacion</th>
+          <th>Ver más</th>
+        </tr>
+        {% for item in usuarios %}
+        <tr id="info-socios">
+            <td>
+                <img id="image_socios" src="{{MEDIA_URL}}{{item.socio.picture}}" />
+            </td>
+            <td class="texto-center">{{item.dni }}</td>
+            <td class="texto-center">{{item.first_name }}</td>
+            <td class="texto-center">{{item.last_name }}</td>
+            <td class="texto-center">{{item.ocupacion }}</td>
+            <td class="texto-center">
+              <a class="btn btn-info" href="{% url 'socio' item.dni %}">Ver más</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+      
+    </div>
+  </div>
+  <br/><br/><br/>
+
+{% endblock contenido %}

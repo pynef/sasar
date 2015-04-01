@@ -1,0 +1,26 @@
+{% extends 'frontend/base.html' %}
+{% load staticfiles %}
+{% block script %}<script type="text/javascript">
+$(document).ready(function(){$("#informes").addClass("active")});
+</script>{% endblock script %}
+{% block contenido %}
+
+  <div class="row">
+    <img  class="col-lg-5" src="{% static 'img/logo/padre_san_roque.jpg' %}" border="0" />
+    <div class="col-lg-7">
+      <h3>Padre San Roque</h3>
+      <p>
+      San Roque, nacido en Montpellier en 1295 fue un noble francés que a los 20 años decidió repartir sus bienes a los pobres y se marcho a peregrinar a Italia, donde se consagro a asistir a los enfermos aquejados por la peste, hasta que el mismo se contagio.
+      Piadoso, opto retirarse solo a los bosques para no contagiar la enfermedad y morir en soledad en 1327. Allí, cuenta la leyenda, apareció un perro que día a día llevaba al Santo pan para comer.
+      En reconocimiento al perro de San Roque, las imágenes del Santo siempre están acompañadas por el animal que fue el único que lo acompaño y asistió hasta su muerte.
+      Varios milagros fueron atribuidos al Santo. Todos los años el 16 de agosto se conmemora el día de San Roque, y en distintas parroquias se celebran misas y actos, donde los bendecidos son los perros junto a sus dueños.</p>
+      <h3>Oración a San Roque</h3>
+    <p>
+    Señor, Dios todo poderoso, tú nos has revelado que toda ley se resume en el amor a ti y al prójimo. Concédenos que, imitando la caridad de San Roque, podamos ser un día contados entre los elegidos de tu Reino
+    Glorioso San Roque, te agradecemos que desde tu sencillez nos recuerdes que Dios también está cerca de nosotros cuando recibimos la sacudida del dolor y de la enfermedad. Ayúdanos a vivir estas situaciones con serenidad y paz, agradeciendo el servicio de los que nos ayudan. Que no olvidemos que nuestra vida es avanzar por el camino de Jesucristo, sirviendo y amando desde la pobreza. Y para que siempre luchemos contra todo lo que degrade y destruya la dignidad humana y la convivencia social.
+    </p>
+    </div>
+  </div>
+  <br/><br/><br/>
+
+{% endblock contenido %}
