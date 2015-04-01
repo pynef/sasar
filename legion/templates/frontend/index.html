@@ -52,23 +52,23 @@
 {% block contenido %}
   <div class="row">
 
-          <div class="col-lg-4">
+          <div class="col-lg-3 text-center">
             <img src="{% static 'img/noticias/sanroque.png' %}" alt="Generic placeholder image" style="width: 140px; height: 170px;">
             <h2>San Roque</h2>
             <p>Nació en Francia, en la ciudad de Montpellier, el año 1295, de padres ricos. "Roc" o "Roque" era seguramente su apellido. En aquella comarca hubo otros "Roques" por aquel siglo. No sabemos su nombre de pila. Murió en 1327. - Fiesta: 16 de agosto.</p>
             <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
           </div>
 
-          <iframe class="col-lg-4" height="350px" src="https://www.youtube.com/embed/_Qg_29ciQUE" frameborder="0" allowfullscreen></iframe>
+          <iframe class="col-lg-6" height="350px" src="https://www.youtube.com/embed/_Qg_29ciQUE" frameborder="0" allowfullscreen></iframe>
 
-          <div class="col-lg-4">
+          <div class="col-lg-3 text-center">
             <img src="{% static 'img/noticias/avelino.png' %}" alt="Generic placeholder image" style="width: 140px; height: 170px;">
             <h2>Avelino</h2>
-            <p>La danza de los Avelinos, tiene su origen ancestral en la infausta Guerra del Pacífico, allá por los años de 1879 a 1833, en la que durante la Campaña de resistencia",de la breña marchaban los guerrilleros o montoneros de Cáceres, al compás de las palabras “yana y Jarachamanta” (pié derecho, pié izquierdo).</p>
+            <p>Danza de los Avelinos, tiene su origen ancestral en la infausta Guerra del Pacífico, allá por los años de 1879 a 1833, en la que durante la Campaña de resistencia",de la breña marchaban los guerrilleros o montoneros de Cáceres, al compás de “yana y Jarachamanta”.</p>
             <p><a class="btn btn-danger" href="#" role="button">View details &raquo;</a></p>
           </div>
 
-      </div>
+      </div><br/><br/>
       <div class="row container">
               <div class="col-lg-6">
                   <a href="#" class="thumbnail" data-toggle="modal" data-target="#lightbox"> 
@@ -80,7 +80,7 @@
               -->
               <div class="col-lg-6">
                 <h2>Leer</h2>
-                <p>Este mensaje y sus adjuntos se dirigen exclusivamente a su destinatario, puede contener información privilegiada o confidencial y es para uso exclusivo de la persona o entidad de destino. Si no es usted. el destinatario indicado, queda notificado de que la lectura, utilización, divulgación y/o copia sin autorización puede estar prohibida en virtud de la legislación vigente. Si ha recibido este mensaje por error, le rogamos que nos lo comunique inmediatamente por esta misma vía y proceda a su destrucción.</p>
+                <p style="text-align:justify">Este mensaje y sus adjuntos se dirigen exclusivamente a su destinatario, puede contener información privilegiada o confidencial y es para uso exclusivo de la persona o entidad de destino. Si no es usted. el destinatario indicado, queda notificado de que la lectura, utilización, divulgación y/o copia sin autorización puede estar prohibida en virtud de la legislación vigente. Si ha recibido este mensaje por error, le rogamos que nos lo comunique inmediatamente por esta misma vía y proceda a su destrucción.</p>
               </div>
       </div>
 </div>
@@ -102,12 +102,6 @@
     </div>
 {% endblock contenido %}
 {% block script %}
-<script>
-$(document).ready(function () {
-    $(".fancybox").fancybox();
-    $(".fancybox").trigger('click');
-});
-</script>
 <script type="text/javascript">
 $(document).ready(function(){$("#home").addClass("active")});
 </script>
