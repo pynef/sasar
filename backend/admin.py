@@ -7,6 +7,9 @@ from backend.models import Ingreso
 from backend.models import Egreso
 from backend.models import JuntaDirectiva
 from backend.models import GaleriaFotos
+from backend.models import Cargo
+from backend.models import Noticias
+from backend.models import Banner
 
 admin.site.register(Categoria)
 admin.site.register(Socio)
@@ -15,3 +18,6 @@ admin.site.register(Ingreso)
 admin.site.register(Egreso)
 admin.site.register(JuntaDirectiva)
 admin.site.register(GaleriaFotos)
+admin.site.register(Cargo)
+admin.site.register(Noticias)
+admin.site.register(Banner)

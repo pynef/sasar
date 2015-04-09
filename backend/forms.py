@@ -2,7 +2,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.forms import ModelForm, TextInput, Select, Textarea, FileInput, PasswordInput
-from backend.models import Apertura, Ingreso, Egreso, Socio, GaleriaFotos
+from backend.models import Apertura, Ingreso, Egreso, Socio, GaleriaFotos, User, Noticias, Banner
 
 
 class FormSocio(ModelForm):
@@ -42,9 +42,20 @@ class formSocios(ModelForm):
                     'user_permissions',
                     'password',
                     'groups',
+                    'is_active',
                     ]
         widgets={
             'username': TextInput(attrs={'class': 'form-control'}),
+            'first_name': TextInput(attrs={'class': 'form-control'}),
+            'last_name': TextInput(attrs={'class': 'form-control'}),
+            'email': TextInput(attrs={'class': 'form-control'}),
+            'resumen': TextInput(attrs={'class': 'form-control'}),
+            'direccion': TextInput(attrs={'class': 'form-control'}),
+            'dni': TextInput(attrs={'class': 'form-control'}),
+            'ocupacion': TextInput(attrs={'class': 'form-control'}),
+            'residencia': TextInput(attrs={'class': 'form-control'}),
+            'categoria': Select(attrs={'class': 'form-control', 'disabled': 'disabled'}),
+            'avatar': FileInput(attrs={'class': 'form-control'}),
         }
 
 
@@ -71,3 +82,47 @@ class FormSocioVideo(ModelForm):
         fields  =  [
                     'video',
                     ]
+
+class userForm(ModelForm):
+    class Meta():
+        model = Socio
+        exclude =  ['active',
+                    'last_login',
+                    'is_superuser',
+                    'is_staff',
+                    'date_joined',
+                    'auth_permission',
+                    'user_permissions',
+                    'groups']
+        widgets = {
+            'password': forms.PasswordInput(),
+            'dni': TextInput(attrs={'class': 'form-control'}),
+            'username': TextInput(attrs={'class': 'form-control'}),
+            'first_name': TextInput(attrs={'class': 'form-control'}),
+            'last_name': TextInput(attrs={'class': 'form-control'}),
+            'email': TextInput(attrs={'class': 'form-control'}),
+        }
+
+class FormNoticias(ModelForm):
+    class Meta:
+        model = Noticias
+        fields  =  [
+                    'picture','titulo','descripcion','user',
+                    ]
+        widgets = {
+            'picture': FileInput(attrs={'class': 'form-control form-space'}),
+            'titulo': TextInput(attrs={'class': 'form-control form-space'}),
+            'descripcion': Textarea(attrs={'cols': 23, 'rows': 2,'class':'form-control form-space'}),
+        }
+class FormBanner(ModelForm):
+    class Meta:
+        model = Banner
+        fields  =  [
+                    'picture','titulo','descripcion','user',
+                    ]
+        widgets = {
+            'picture': FileInput(attrs={'class': 'form-control form-space'}),
+            'titulo': TextInput(attrs={'class': 'form-control form-space'}),
+            'descripcion': Textarea(attrs={'cols': 23, 'rows': 2,'class':'form-control form-space'}),
+        }
+        

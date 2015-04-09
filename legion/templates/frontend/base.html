@@ -39,11 +39,12 @@
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">
                 <li id="home"><a href="/home">Inicio</a></li>
-                <li id="socios"><a href="{% url 'socios' %}">Socios</a></li>
-                <li id="contactenos"><a href="{% url 'contactenos' %}">Contactenos</a></li>
+                <li id="quienes_somos"><a href="{% url 'quienes_somos' %}">Quienes Somos</a></li>
+                <li id="responsabilidad_social"><a href="{% url 'responsabilidad_social' %}">Responsabilidad Social</a></li>
                 <li id="informe" class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Informes <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
+                    <li id="socios"><a href="{% url 'socios' %}">Socios</a></li>
                     <li id="reglamentos"><a href="{% url 'reglamentos' %}">Reglamento</a></li>
                     <li id="estatutos"><a href="{% url 'estatutos' %}">Estatutos</a></li>
                     <!--<li id="informes"><a href="{% url 'informes' %}">Informes</a></li>-->
@@ -78,9 +79,6 @@
       <div class="carousel-inner" role="listbox">
         <div class="item active">
           <img src="{% static 'img/portada/img_portada1.jpg' %}"  alt="First slide" />
-        </div>
-        <div class="item">
-          <img src="{% static 'img/portada/img_portada2.jpg' %}" alt="Third slide" />
         </div>
         <div class="item">
           <img src="{% static 'img/portada/img_portada3.jpg' %}" alt="Second slide" />

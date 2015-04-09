@@ -2,9 +2,15 @@
 <!DOCTYPE html>
 <html>
   <head lang="es">
-    <meta charset="UTF-8">
-    <title>{% block title %} {% endblock title %}</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Es una sociedad de personas">
+    <meta name="author" content="Nefi">
+    <title>{% block title %} Sociedad de Avelinos Sasar {% endblock title %}</title>
+
+    <link rel="shortcut icon" href="{% static 'img/logo/icono.png' %}">
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
     <!-- Bootstrap 3.3.2 -->
     <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" type="text/css" />
@@ -129,7 +135,7 @@
               </a>
             </li>
             <li>
-              <a href="{% url 'socio' usuario.dni %}">
+              <a href="{% url 'socio_back' usuario.dni %}">
                 <i class="fa fa-user"></i> <span>Cuenta</span>
               </a>
             </li>
@@ -146,6 +152,21 @@
               </a>
             </li>
             {% if admin %}
+            <li>
+              <a href="{% url 'noticias' %}">
+                <i class="fa fa-th"></i> <span>Noticias</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'banner' %}">
+                <i class="fa fa-th"></i> <span>Notificacion</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'nuevo_socio' %}">
+                <i class="fa fa-th"></i> <span>Ingreso de Socios</span>
+              </a>
+            </li>
             <li>
               <a href="{% url 'temporada' %}">
                 <i class="fa fa-th"></i> <span>Apertura</span>

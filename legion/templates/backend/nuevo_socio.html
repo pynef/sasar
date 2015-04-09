@@ -1,0 +1,46 @@
+{% extends 'backend/base.html' %}
+{% load staticfiles %}
+{% block contenido %}
+
+	<div class="row container">
+		<form  method='post' action='' class="form-signin">{% csrf_token %}
+	        <h2 class="form-signin-heading text-center">Agregando Personal</h2>
+	        <table>
+	        	<tr>
+	              <td>DNI</td>
+	              <td>{{ formulario.dni }}</td> 
+	            </tr>
+	            <tr>
+	              <td>Nombre</td>
+	              <td>{{ formulario.first_name }}</td> 
+	            </tr>
+	             <tr>
+	              <td>Apellidos</td>
+	              <td>{{ formulario.last_name }}</td> 
+	            </tr>
+	            <tr>
+	              <td>Nombre de Usuario</td>
+	              <td>{{ formulario.username }}</td> 
+	            </tr>
+	            <tr>
+	              <td>Contraseña</td>
+	              <td>{{ formulario.password }}</td> 
+	            </tr>
+	             <tr>
+	              <td>Correo</td>
+	              <td>{{ formulario.email }}</td> 
+	            </tr>
+	            <tr>
+	            	<td></td>
+	            	<td><br>
+	            		<button class="btn btn-primary btn-lg btn-block" type="submit">Guardar</button>
+	            	</td>
+	            </tr>
+	        </table>
+	    </form>
+	</div>
+
+{% endblock contenido %}
+{% block scripts %}<script type="text/javascript">
+$(document).ready(function(){$("#id_password").addClass("form-control")});
+</script>{% endblock scripts %}

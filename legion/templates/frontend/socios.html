@@ -1,7 +1,7 @@
 {% extends 'frontend/base.html' %}
 {% load staticfiles %}
 {% block script %}<script type="text/javascript">
-$(document).ready(function(){$("#socios").addClass("active")});
+$(document).ready(function(){$("#informe").addClass("active")});
 </script>{% endblock script %}
 {% block contenido %}
 
@@ -10,23 +10,27 @@ $(document).ready(function(){$("#socios").addClass("active")});
       <table class="table table-hover">
         <tr>
           <th>Portada</th>
-          <th>DNI</th>
-          <th>Nombres</th>
           <th>Apellidos</th>
-          <th>Ocupacion</th>
-          <th>Ver más</th>
+          <th>Nombres</th>
+          <th>Correo Electronico</th>
+          <th>Orden De Parada</th>
+          <th>Activo</th>
         </tr>
         {% for item in usuarios %}
         <tr id="info-socios">
             <td>
                 <img id="image_socios" src="{{MEDIA_URL}}{{item.socio.picture}}" />
             </td>
-            <td class="texto-center">{{item.dni }}</td>
-            <td class="texto-center">{{item.first_name }}</td>
-            <td class="texto-center">{{item.last_name }}</td>
-            <td class="texto-center">{{item.ocupacion }}</td>
+            <td class="texto-center">{{ item.last_name }}</td>
+            <td class="texto-center">{{ item.first_name }}</td>
+            <td class="texto-center">{{ item.email }}</td>
+            <td class="texto-center">{{ item.orden_parada }}</td>
             <td class="texto-center">
-              <a class="btn btn-info" href="{% url 'socio' item.dni %}">Ver más</a>
+                {% if item.is_active %}
+                <p class="text-info">SI</p>
+                {% else %}
+                <p class="text-danger">NO</p>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}

@@ -14,6 +14,18 @@ class Categoria(models.Model):
         return '{0}'.format(self.nombre)
 
 
+class Cargo(models.Model):
+    '''
+      Categoria en la que entra
+      en la junta directiva
+    '''
+    nombre = models.CharField(max_length=64)
+    descripcion = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return '{0}'.format(self.nombre)
+
+
 class Socio(User):
     '''
       Modelos de la clase Socio
@@ -29,6 +41,7 @@ class Socio(User):
                                 default='default/avatar.png',blank=True, null=True)
     categoria = models.ForeignKey(Categoria,blank=True, null=True)
     video = models.FileField(upload_to="VideoSocio",blank=True, null=True)
+    orden_parada = models.DateField(blank=True, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -64,6 +77,7 @@ class Apertura(models.Model):
     is_active = models.BooleanField(default=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User,blank=True, null=True)
 
     def __str__(self):
         return '{0}'.format(self.temporada)
@@ -104,11 +118,11 @@ class Egreso(models.Model):
     '''
     recibo = models.CharField(max_length=64)
     concepto = models.CharField(max_length=64)
-    socio = models.ForeignKey(Socio)
     monto = models.DecimalField(decimal_places=2, max_digits=6)
     apertura = models.ForeignKey(Apertura)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+    socio = models.ForeignKey(Socio)
 
     def __str__(self):
         return '{0}'.format(self.recibo)
@@ -116,11 +130,44 @@ class Egreso(models.Model):
 
 class JuntaDirectiva(models.Model):
     '''
-      Lista de socios que conforma la junta directiva
+      Lista de socios que conforma la junta directiva,
        de una determinada apertura
     '''
     socio = models.ForeignKey(Socio)
     apertura = models.ForeignKey(Apertura)
+    cargo = models.ForeignKey(Cargo, blank=True, null=True)
 
     def __str__(self):
         return '{0}'.format(self.socio)
+
+
+class Noticias(models.Model):
+    '''
+     Lista de las noticias que se publicara en el 
+     transcurso del anio; como eventos y otro
+    '''
+    titulo = models.CharField(max_length=200)
+    picture = models.ImageField(upload_to="Noticias/",blank=True, null=True)
+    descripcion = models.TextField(blank=True, null=True)
+    is_active = models.BooleanField(default=False)
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User)
+
+    def __str__(self):
+        return '{0}'.format(self.titulo)
+
+
+class Banner(models.Model):
+    '''
+     Los bannes que iran en la pagina principal
+    '''
+    titulo = models.CharField(max_length=200,blank=True, null=True)
+    picture = models.ImageField(upload_to="Banner/")
+    descripcion = models.TextField(blank=True, null=True)
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User)
+
+    def __str__(self):
+        return '{0}'.format(self.titulo)

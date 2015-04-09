@@ -5,16 +5,33 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from legion.decoratos import backend_login,frontend_login
-from backend.models import Socio, GaleriaFotos, Ingreso, Apertura
+from backend.models import Socio, GaleriaFotos, Ingreso, Apertura, Noticias, Banner
 
 def inicio(request):
-    return render(request,'frontend/index.html')
+    noti = Banner.objects.all().order_by('-id')[:1].get()
+    print "notficacion"
+    print noti
+    print "notficacion"
+    cntxt={
+        'noti':noti,
+    }
+    return render(request,'frontend/index.html',cntxt)
 
 def home(request):
-    return render(request,'frontend/index.html')
+    noti = Banner.objects.all().order_by('-id')[:1]
+    print "notficacion"
+    print noti
+    print "notficacion"
+    cntxt={
+        'noti':noti,
+    }
+    return render(request,'frontend/index.html',cntxt)
 
-def contactenos(request):
-    return render(request,'frontend/contactenos.html')
+def responsabilidad_social(request):
+    return render(request,'frontend/responsabilidad_social.html')
+
+def quienes_somos(request):
+    return render(request,'frontend/quienes_somos.html')
 
 def reglamentos(request):
     return render(request,'frontend/reglamentos.html')
@@ -37,28 +54,26 @@ def socios(request):
     }
     return render(request,'frontend/socios.html',cntxt)
 
+def las_noticias(request):
+    las_noticias = Noticias.objects.all()
+    print las_noticias
+    cntxt={
+        'las_noticias':las_noticias,
+    }
+    return render(request,'frontend/las_noticias.html',cntxt)
+
 def socio(request,dni):
-    usuario = Socio.objects.get(username=request.user.username)
     socio = Socio.objects.get(dni=dni)
     galeria_imagenes = GaleriaFotos.objects.filter(socio=Socio.objects.get(dni=dni))
-    ingresoSocio = Ingreso.objects.filter(socio=usuario)
-    temporada = Apertura.objects.get(is_active=True)
-    totalI = 0
-    for i in ingresoSocio:
-        totalI = i.monto+totalI
-    el_saldo = temporada.monto_apertura-totalI
-    try:
-        admin = usuario.groups.get(name='backend')
-    except:
-        admin = False
     cntxt={
-        'usuario':usuario,'socio':socio, 'galeria_imagenes': galeria_imagenes, 'el_saldo': el_saldo, 'admin': admin,
+        'socio':socio, 'galeria_imagenes': galeria_imagenes,
     }
     return render(request,'frontend/socio.html',cntxt)
 
 def index(request):
     if request.user.is_authenticated() :
         print "logeado"
+        print request.user.is_active
         if request.user.groups.filter(name='backend'):
             return HttpResponseRedirect('/administracion/')
         elif request.user.groups.filter(name='frontend'):

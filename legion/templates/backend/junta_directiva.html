@@ -11,6 +11,7 @@
           <th>Nombres</th>
           <th>Apellidos</th>
           <th>Ocupacion</th>
+          <th>Cargo</th>
           <th>Ver más</th>
         </tr>
         {% for item in junta_directiva %}
@@ -18,12 +19,13 @@
             <td>
                 <img id="image_directiva" src="{{MEDIA_URL}}{{item.socio.picture}}" />
             </td>
-            <td>{{item.socio.dni }}</td>
+            <td class="texto-center">{{item.socio.dni }}</td>
             <td>{{item.socio.first_name }}</td>
             <td>{{item.socio.last_name }}</td>
             <td>{{item.socio.ocupacion }}</td>
+            <td>{{item.cargo }}</td>
             <td>
-              <a class="btn btn-info" href="{% url 'socio' item.socio.dni %}">más info</a>
+              <a class="btn btn-info" href="{% url 'socio_back' item.socio.dni %}">más info</a>
             </td>
         </tr>
         {% endfor %}
