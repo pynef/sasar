@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from legion.decoratos import backend_login,frontend_login
 from backend.forms import FormSocio, FormIngreso, FormEgreso, formSocios, FormGaleriaFotos, FormGaleriaFotosEdit, FormSocioVideo, userForm, FormNoticias, FormBanner
 from backend.models import Socio,JuntaDirectiva,GaleriaFotos, Noticias, Banner
-from backend.models import Apertura, Ingreso, Socio, Egreso, JuntaDirectiva
+from backend.models import Apertura, Ingreso, Socio, Egreso, JuntaDirectiva, Categoria
 import time
 import os
 

@@ -55,6 +55,7 @@ class formSocios(ModelForm):
             'ocupacion': TextInput(attrs={'class': 'form-control'}),
             'residencia': TextInput(attrs={'class': 'form-control'}),
             'categoria': Select(attrs={'class': 'form-control', 'disabled': 'disabled'}),
+            'orden_parada': TextInput(attrs={'class': 'form-control', 'disabled': 'disabled'}),
             'avatar': FileInput(attrs={'class': 'form-control'}),
         }
 
@@ -101,6 +102,9 @@ class userForm(ModelForm):
             'first_name': TextInput(attrs={'class': 'form-control'}),
             'last_name': TextInput(attrs={'class': 'form-control'}),
             'email': TextInput(attrs={'class': 'form-control'}),
+            'orden_parada': TextInput(attrs={'class': 'form-control data-input', 
+                                    'data-inputmask': "'alias': 'dd/mm/yyyy'",
+                                    'data-mask':''}),
         }
 
 class FormNoticias(ModelForm):
