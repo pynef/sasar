@@ -6,8 +6,8 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from legion.decoratos import backend_login,frontend_login
-from backend.forms import FormSocio, FormIngreso, FormEgreso, formSocios, FormGaleriaFotos, FormGaleriaFotosEdit, FormSocioVideo, userForm, FormNoticias, FormBanner
-from backend.models import Socio,JuntaDirectiva,GaleriaFotos, Noticias, Banner
+from backend.forms import FormSocio, FormIngreso, FormEgreso, formSocios, FormGaleriaFotos, FormGaleriaFotosEdit, FormSocioVideo, userForm, FormNoticias, FormBanner, FormFotos
+from backend.models import Socio,JuntaDirectiva,GaleriaFotos, Noticias, Banner, Fotos
 from backend.models import Apertura, Ingreso, Socio, Egreso, JuntaDirectiva, Categoria
 import time
 import os
@@ -29,13 +29,13 @@ def temporada(request):
     temporada = Apertura.objects.all().order_by('-fin')[0]
     ingresos = Ingreso.objects.filter(socio=usuario)
     try:
-        temporada = Apertura.objects.get(is_active=True)
+        temporadas = Apertura.objects.get(is_active=True)
         print "apertura"
         print apertura
         totalI = 0
         for i in ingresos:
             totalI = i.monto+totalI
-        el_saldo = temporada.monto_apertura-totalI
+        el_saldo = temporadas.monto_apertura-totalI
     except:
         if request.method == 'POST':
             form = FormSocio(request.POST)
@@ -78,7 +78,7 @@ def cierre_temporada(request):
         temporada.save()
     return HttpResponseRedirect(reverse('temporada'))
 
-@backend_login
+
 def ingreso(req):
     usuario = Socio.objects.get(username=req.user.username)
     apertura = Apertura.objects.get(is_active=True)
@@ -107,7 +107,7 @@ def ingreso(req):
     }
     return render(req, 'backend/ingresos.html',ctx)
 
-@backend_login
+
 def egresos(req):
     apertura = Apertura.objects.get(is_active=True)
     usuario = Socio.objects.get(username=req.user.username)
@@ -138,35 +138,11 @@ def egresos(req):
 
 def index(request):
     print "endro a backend desde inicios"
-    try:
-        usuario = Socio.objects.get(username=request.user.username)
-        print usuario
-        print "usuario"
-        ingresos = Ingreso.objects.filter(socio=usuario)
-        temporada = Apertura.objects.get(is_active=True)
-        totalI = 0
-        for i in ingresos:
-            totalI = i.monto+totalI
-        el_saldo = temporada.monto_apertura-totalI
-        try:
-            admin = usuario.groups.get(name='backend')
-        except:
-            admin = False
-        cntxt = {
-            'usuario':usuario, 'el_saldo': el_saldo, 'admin': admin
-            }
-        return render(request,'backend/index.html',cntxt)
-    except:
-        cntxt = {
-            
-            }
-        return render(request,'frontend/index.html',cntxt)
-
-@login_required(login_url="/")
-def perfil(request):
     usuario = Socio.objects.get(username=request.user.username)
-    ingresos = Ingreso.objects.filter(socio=usuario)
+    print usuario
+    print "usuario"
     temporada = Apertura.objects.get(is_active=True)
+    ingresos = Ingreso.objects.filter(socio=usuario)
     totalI = 0
     for i in ingresos:
         totalI = i.monto+totalI
@@ -175,13 +151,34 @@ def perfil(request):
         admin = usuario.groups.get(name='backend')
     except:
         admin = False
-    if request.method == 'POST':
-    	formulario = formSocios(request.POST,request.FILES,instance=usuario)
-    	if formulario.is_valid():
-    		formulario.save()
-    		return HttpResponseRedirect('/administracion')
-    else:
-    	formulario = formSocios(instance=usuario)
+    cntxt = {
+        'usuario':usuario, 'el_saldo': el_saldo, 'admin': admin
+        }
+    return render(request,'backend/index.html',cntxt)
+
+@login_required(login_url="/")
+def perfil(request):
+    try:
+        temporada = Apertura.objects.get(is_active=True)
+        usuario = Socio.objects.get(username=request.user.username)
+        ingresos = Ingreso.objects.filter(socio=usuario)
+        totalI = 0
+        for i in ingresos:
+            totalI = i.monto+totalI
+        el_saldo = temporada.monto_apertura-totalI
+        try:
+            admin = usuario.groups.get(name='backend')
+        except:
+            admin = False
+        if request.method == 'POST':
+        	formulario = formSocios(request.POST,request.FILES,instance=usuario)
+        	if formulario.is_valid():
+        		formulario.save()
+        		return HttpResponseRedirect('/administracion')
+        else:
+        	formulario = formSocios(instance=usuario)
+    except:
+        return render(request,'frontend/quienes_somos.html')
     cntxt = {
     'usuario':usuario,'formulario':formulario, 'el_saldo': el_saldo, 'admin': admin,
     }
@@ -304,6 +301,7 @@ def junta_directiva(request):
 def reporte_socio(request):
     usuario = Socio.objects.get(username=request.user.username)
     socios = Socio.objects.all()
+    temporadas_totales = Apertura.objects.all()
     ingresos = Ingreso.objects.filter(socio=usuario)
     temporada = Apertura.objects.get(is_active=True)
     totalI = 0
@@ -312,7 +310,8 @@ def reporte_socio(request):
     el_saldo = temporada.monto_apertura-totalI
     if request.method == 'POST':
         dato = request.POST.get("socio")
-        reportes = Ingreso.objects.filter(socio=Socio.objects.get(id=dato))
+        apert = request.POST.get("apertura")
+        reportes = Ingreso.objects.filter(socio=Socio.objects.get(id=dato)).filter(apertura=Apertura.objects.get(id=apert))
         total = 0
         for i in reportes:
             total = i.monto + total
@@ -340,6 +339,7 @@ def reporte_socio(request):
         'restante': restante,
         'monto_apertura': monto_apertura,
         'verdad': verdad,
+        'temporadas_totales': temporadas_totales,
         }
     return render(request,'backend/reporte_socio.html',cntxt)
 
@@ -587,3 +587,62 @@ def del_banner(request,id):
     datos = get_object_or_404(Banner, pk=id)
     datos.delete()
     return HttpResponseRedirect('/administracion/banner')
+
+@backend_login
+def galeria_fotos(request):
+    usuario = Socio.objects.get(username=request.user.username)
+    imagenes = Fotos.objects.all().order_by('-id')
+    ingresos = Ingreso.objects.filter(socio=usuario)
+    temporada = Apertura.objects.get(is_active=True)
+    totalI = 0
+    try:
+        admin = usuario.groups.get(name='backend')
+    except:
+        admin = False
+    for i in ingresos:
+        totalI = i.monto+totalI
+    el_saldo = temporada.monto_apertura-totalI
+    if request.method == 'POST':
+        formulario = FormFotos(request.POST,request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            return HttpResponseRedirect('/administracion/galeria_fotos')
+    else:
+        formulario = FormFotos()
+    cntxt = {
+        'imagenes':imagenes, 'formulario':formulario, 'usuario': usuario, 'el_saldo': el_saldo, 'admin': admin,
+        }
+    return render(request,'backend/galeria_fotos.html',cntxt)
+
+@backend_login
+def edit_fotos(request,id):
+    usuario = Socio.objects.get(username=request.user.username)
+    imagenes = Fotos.objects.all().order_by('-id')
+    imagen = Fotos.objects.get(id=id)
+    ingresos = Ingreso.objects.filter(socio=usuario)
+    temporada = Apertura.objects.get(is_active=True)
+    totalI = 0
+    for i in ingresos:
+        totalI = i.monto+totalI
+    el_saldo = temporada.monto_apertura-totalI
+    try:
+        admin = usuario.groups.get(name='backend')
+    except:
+        admin = False
+    if request.method == 'POST':
+        formulario = FormFotos(request.POST,request.FILES,instance=imagen)
+        if formulario.is_valid():
+            formulario.save()
+            return HttpResponseRedirect('/administracion/galeria_fotos')
+    else:
+        formulario = FormFotos(instance=imagen)
+    cntxt = {
+    'usuario':usuario,'imagenes':imagenes,'formulario':formulario, 'el_saldo': el_saldo, 'admin': admin,
+    }
+    return render (request,'backend/edit_galeria_imagenes.html',cntxt)
+
+@backend_login
+def borrar_fotos(request,id):
+    datos = get_object_or_404(Fotos, pk=id)
+    datos.delete()
+    return HttpResponseRedirect('/administracion/galeria_fotos')

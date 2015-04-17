@@ -2,7 +2,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.forms import ModelForm, TextInput, Select, Textarea, FileInput, PasswordInput
-from backend.models import Apertura, Ingreso, Egreso, Socio, GaleriaFotos, User, Noticias, Banner
+from backend.models import Apertura, Ingreso, Egreso, Socio, GaleriaFotos, User, Noticias, Banner, Fotos
 
 
 class FormSocio(ModelForm):
@@ -64,6 +64,9 @@ class FormGaleriaFotos(ModelForm):
     class Meta:
         model = GaleriaFotos
 
+class FormFotos(ModelForm):
+    class Meta:
+        model = Fotos
 
 class FormGaleriaFotosEdit(ModelForm):
     class Meta:

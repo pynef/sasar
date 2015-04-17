@@ -119,6 +119,7 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MENU</li>
+            
             <li>
               <a href="{% url 'perfil' %}">
                 <i class="fa fa-user"></i> <span>Perfil</span>
@@ -186,6 +187,14 @@
               <a href="{% url 'egresos' %}">
                 <i class="fa fa-th"></i> <span>Pagos de Actividades</span>
               </a>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-dashboard"></i> <span>Galeria Multimedia</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{% url 'galeria_fotos' %}"><i class="fa fa-circle-o"></i> Galeria de Imagenes</a></li>
+              </ul>
             </li>
             {% endif %}
             <li class="treeview">

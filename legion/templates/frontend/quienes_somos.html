@@ -1,10 +1,17 @@
 {% extends 'frontend/base.html' %}
 {% load staticfiles %}
+{% block style %}
+<style type="text/css">
+body{
+  text-align: justify;
+}
+</style>
+{% endblock style %}
 {% block script %}<script type="text/javascript">
 $(document).ready(function(){$("#quienes_somos").addClass("active")});
 </script>{% endblock script %}
 {% block contenido %}
-  <div class="row  container">
+  <div class="row container">
       <div class="col-lg-4">
           <h3 class="text-info">
             "SOCIEDAD DE AVELINOS SAN ROQUE DE HUALHUAS" "SASAR"
@@ -69,5 +76,5 @@ $(document).ready(function(){$("#quienes_somos").addClass("active")});
           </p>
       </div>
   </div>
-<br/><br/><br/><br/>
+<br/>
 {% endblock contenido %}

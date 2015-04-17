@@ -1,0 +1,33 @@
+{% extends 'frontend/base.html' %}
+{% load staticfiles %}
+{% block css %}
+<link href="{% static 'multimedia/default.css' %}" rel="stylesheet" />
+<link href="{% static 'multimedia/component.css' %}" rel="stylesheet" />
+<script type="text/javascript" src="{% static 'multimedia/modernizr.custom.js' %}"></script>
+{% endblock css %}
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){$("#galeria").addClass("active")});
+</script>
+<script type="text/javascript" src="{% static 'multimedia/grid.js' %}"></script>
+<script>
+	$(function() {
+		Grid.init();
+	});
+</script>
+{% endblock script %}
+{% block contenido %}
+
+    <ul id="og-grid" class="og-grid">
+      {% for i in fotoGaleria %}
+        <li>
+			<a href="#" data-largesrc="{{MEDIA_URL}}{{i.foto}}" data-title="{{i.titulo}}" data-description="{{i.descripcion}}">
+				<img width="200px" height="200px" src="{{MEDIA_URL}}{{i.foto}}" alt="{{i.foto}}"/>
+			</a>
+		</li>
+      {% endfor %}
+    </ul>
+
+<br/><br/><br/><br/>
+{% endblock contenido %}

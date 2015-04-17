@@ -27,4 +27,7 @@ urlpatterns = patterns('backend.views',
     url(r'administracion/banner/$','banner',name='banner'),
     url(r'administracion/edit_banner/(?P<id>\d+)$','edit_banner',name='edit_banner'),
     url(r'administracion/del_banner/(?P<id>\d+)$','del_banner',name='del_banner'),
+    url(r'administracion/galeria_fotos/$','galeria_fotos',name='galeria_fotos'),
+    url(r'^administrador/borrar_fotos/(?P<id>\d+)$', 'borrar_fotos', name='borrar_fotos'),
+    url(r'^administrador/edit_fotos/(?P<id>\d+)$', 'edit_fotos', name='edit_fotos'),
 )
