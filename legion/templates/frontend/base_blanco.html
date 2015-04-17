@@ -1,0 +1,21 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Es una sociedad de personas">
+    <meta name="author" content="Nefi">
+    <link rel="shortcut icon" href="{% static 'img/logo/icono.png' %}">
+    <title>AVELINOS SASAR</title>
+    {% block css %}{% endblock css %}
+    {% block style %}{% endblock style %}
+  </head>
+  <body>        
+      {% block contenido %}
+      {% endblock contenido %}
+      {% block script %}{% endblock script %}
+      {% block js %}{% endblock js %}
+  </body>
+</html>

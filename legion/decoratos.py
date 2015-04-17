@@ -16,8 +16,8 @@ def backend_login(view_func):
 
 def frontend_login(view_func):
     def wrap(request, *args, **kwargs):
-        is_doc = request.user.groups.filter(name='frontend').count()
-        if request.user.is_authenticated() and is_doc :
+        is_sec = request.user.groups.filter(name='frontend').count()
+        if request.user.is_authenticated() and is_sec :
             return view_func( request=request,*args, **kwargs )
         return HttpResponseRedirect(reverse('index'))
     wrap.__doc__ = view_func.__doc__

@@ -10,7 +10,16 @@
               <option value="{{socio.id}}" >{{socio.first_name}} {{socio.last_name}}</option>
             {% endfor %}
           </select>
+
+          <label for="id_nombre">Temporada:</label>
+            <select name="apertura" id="id_apertura" class="form-control" required>
+              <option></option>
+              {% for temporad in temporadas_totales %}
+                <option value="{{temporad.id}}" >{{temporad.temporada}}</option>
+              {% endfor %}
+            </select>
         </p>
+
           <div class="col-lg-6" style="margin-top:1%;">
             <button class="btn btn-success btn-lg" type="submit">Buscar los Pagos</button>
           </div>

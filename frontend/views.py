@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from legion.decoratos import backend_login,frontend_login
-from backend.models import Socio, GaleriaFotos, Ingreso, Apertura, Noticias, Banner
+from backend.models import Socio, GaleriaFotos, Ingreso, Apertura, Noticias, Banner, Fotos
 
 def inicio(request):
     noti = Banner.objects.all().order_by('-id')[:1].get()
@@ -84,3 +84,28 @@ def index(request):
     else:
         print "no logeado"
         return HttpResponseRedirect('/home/')
+
+def fotos_socios(request):
+    fotoSocios = Socio.objects.all()
+    cntxt={
+        'fotoSocios':fotoSocios,
+    }
+    return render(request,'frontend/fotos_socios.html',cntxt)
+
+def fotos_galeria(request):
+    fotoGaleria = Fotos.objects.all()
+    cntxt={
+        'fotoGaleria':fotoGaleria,
+    }
+    print fotoGaleria
+    return render(request,'frontend/fotos_galeria.html',cntxt)
+
+def galeria_de_fotos(request):
+    return render(request,'frontend/galeria_de_fotos.html')
+
+def videos_galeria(request):
+    videosSocios = Socio.objects.all()
+    cntxt={
+        'videosSocios':videosSocios,
+    }
+    return render(request, 'frontend/videos_galeria.html', cntxt)

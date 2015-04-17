@@ -149,7 +149,7 @@ class Noticias(models.Model):
     titulo = models.CharField(max_length=200)
     picture = models.ImageField(upload_to="Noticias/",blank=True, null=True)
     descripcion = models.TextField(blank=True, null=True)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User)
@@ -168,6 +168,15 @@ class Banner(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User)
+
+    def __str__(self):
+        return '{0}'.format(self.titulo)
+
+
+class Fotos(models.Model):
+    foto = models.ImageField(upload_to="Fotos/", blank=True, null=True)
+    titulo = models.CharField(max_length=128, blank=True, null=True)
+    descripcion = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return '{0}'.format(self.titulo)

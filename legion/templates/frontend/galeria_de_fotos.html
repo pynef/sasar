@@ -1,0 +1,35 @@
+{% extends 'frontend/base.html' %}
+{% load staticfiles %}
+{% block script %}<script type="text/javascript">
+$(document).ready(function(){$("#galeria").addClass("active")});
+</script>{% endblock script %}
+{% block contenido %}
+  <div class="row  container">
+      <div class="col-lg-4">
+          <a href="{% url 'fotos_galeria' %}">
+            <h3 class="text-info">
+              Galeria de Fotos 
+            </h3>
+            <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+          </a>
+      </div>
+      <div class="col-lg-4">
+          <a href="{% url 'videos_galeria' %}">
+            <h3 class="text-info">
+              Galeria de Videos
+            </h3>
+            <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+          </a>
+      </div>
+      <div class="col-lg-4">
+          <a href="{% url 'fotos_socios' %}">
+            <h3 class="text-info">
+              Fotos de Socios
+            </h3>
+            <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+          </a>
+      </div>
+  </div>
+
+<br/><br/><br/><br/>
+{% endblock contenido %}

@@ -13,4 +13,8 @@ urlpatterns = patterns('frontend.views',
 	url(r'^reglamentos/$','reglamentos',name='reglamentos'),
 	url(r'^quienes_somos/$','quienes_somos',name='quienes_somos'),
 	url(r'^las_noticias/$','las_noticias',name='las_noticias'),
+	url(r'^galeria_de_fotos/$','galeria_de_fotos',name='galeria_de_fotos'),
+	url(r'^fotos_socios/$','fotos_socios',name='fotos_socios'),
+	url(r'^fotos_galeria/$','fotos_galeria',name='fotos_galeria'),
+	url(r'^videos_galeria/$','videos_galeria',name='videos_galeria'),
 )
