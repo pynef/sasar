@@ -25,9 +25,8 @@
     <link href="{% static 'dist/css/skins/_all-skins.min.css' %}" rel="stylesheet" type="text/css" />
 
     {% block css %}{% endblock css %}
-    {% block style %}
+    {% block style %}{% endblock style %}
 
-    {% endblock style %}
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -126,19 +125,31 @@
               </a>
             </li>
             <li>
-              <a href="{% url 'galeria_imagenes' %}">
-                <i class="fa fa-user"></i> <span>Galeria de Imagenes</span>
-              </a>
-            </li>
-            <li>
-              <a href="{% url 'galeria_video' %}">
-                <i class="fa fa-user"></i> <span>Galeria de Video</span>
-              </a>
-            </li>
-            <li>
               <a href="{% url 'socio_back' usuario.dni %}">
                 <i class="fa fa-user"></i> <span>Cuenta</span>
               </a>
+            </li>
+            <li>
+              <a href="{% url 'junta_directiva' %}">
+                <i class="fa fa-th"></i> <span>Junta Directiva</span>
+              </a>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-dashboard"></i> <span>Galeria</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li>
+                  <a href="{% url 'galeria_imagenes' %}">
+                    <i class="fa fa-user"></i> <span>Galeria de Imagenes</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'galeria_video' %}">
+                    <i class="fa fa-user"></i> <span>Galeria de Video</span>
+                  </a>
+                </li>
+              </ul>
             </li>
             <!--
             <li>
@@ -147,46 +158,52 @@
               </a>
             </li>
             -->
-            <li>
-              <a href="{% url 'junta_directiva' %}">
-                <i class="fa fa-th"></i> <span>Junta Directiva</span>
-              </a>
-            </li>
             {% if admin %}
-            <li>
-              <a href="{% url 'noticias' %}">
-                <i class="fa fa-th"></i> <span>Noticias</span>
-              </a>
-            </li>
+            
              <li>
               <a href="{% url 'nuevo_socio' %}">
                 <i class="fa fa-th"></i> <span>Nuevo Socio</span>
               </a>
             </li>
-            <li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-dashboard"></i> <span>Avisos</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li>
+                  <a href="{% url 'noticias' %}">
+                    <i class="fa fa-th"></i> <span>Noticias</span>
+                  </a>
+                </li>
+                <li>
               <a href="{% url 'banner' %}">
                 <i class="fa fa-th"></i> <span>Notificacion</span>
               </a>
             </li>
-            <li>
-              <a href="{% url 'nuevo_socio' %}">
-                <i class="fa fa-th"></i> <span>Ingreso de Socios</span>
-              </a>
+              </ul>
             </li>
-            <li>
-              <a href="{% url 'temporada' %}">
-                <i class="fa fa-th"></i> <span>Apertura</span>
+            
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-dashboard"></i> <span>Actividades</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
-            </li>
-             <li>
-              <a href="{% url 'ingreso' %}">
-                <i class="fa fa-th"></i> <span>Pago de Socio</span>
-              </a>
-            </li>
-            <li>
-              <a href="{% url 'egresos' %}">
-                <i class="fa fa-th"></i> <span>Pagos de Actividades</span>
-              </a>
+              <ul class="treeview-menu">
+                  <li>
+                      <a href="{% url 'temporada' %}">
+                        <i class="fa fa-th"></i> <span>Apertura</span>
+                      </a>
+                  </li>
+                   <li>
+                      <a href="{% url 'ingreso' %}">
+                        <i class="fa fa-th"></i> <span>Pagos de Socio</span>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="{% url 'egresos' %}">
+                        <i class="fa fa-th"></i> <span>Pagos de Salida</span>
+                      </a>
+                  </li>
+              </ul>
             </li>
             <li class="treeview">
               <a href="#">

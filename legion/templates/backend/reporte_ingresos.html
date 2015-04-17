@@ -1,6 +1,20 @@
 {% extends 'backend/base.html' %}
 {% load staticfiles %}
 {% block contenido %}
+  <form  method='post' action='.' class="row" role="form" enctype="multipart/form-data">{% csrf_token %}
+    <p class="col-lg-6">
+      <label for="id_nombre">Temporada:</label>
+        <select name="apertura" id="id_apertura" class="form-control" required>
+          <option></option>
+          {% for temporada in temporadas %}
+            <option value="{{temporada.id}}" >{{temporada.temporada}}</option>
+          {% endfor %}
+        </select>
+    </p>
+      <div class="col-lg-6" style="margin-top:2%;">
+        <button class="btn btn-success" type="submit">Buscar</button>
+      </div>
+  </form>
   <hr/>
   <h3 class="text-center text-info">REPORTES DE INGRESOS</h3>
   <div class="row">

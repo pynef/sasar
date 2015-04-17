@@ -345,8 +345,8 @@ def reporte_socio(request):
 
 @login_required(login_url="/")
 def reporte_ingresos(request):
+    temporadas = Apertura.objects.all()
     usuario = Socio.objects.get(username=request.user.username)
-    ingresos = Ingreso.objects.all().order_by('-id')
     ingresoSocio = Ingreso.objects.filter(socio=usuario)
     temporada = Apertura.objects.get(is_active=True)
     totalI = 0
@@ -357,15 +357,20 @@ def reporte_ingresos(request):
         admin = usuario.groups.get(name='backend')
     except:
         admin = False
+    if request.method == 'POST':
+        apert = request.POST.get("apertura")
+        ingresos = Ingreso.objects.filter(apertura=Apertura.objects.get(id=apert)).order_by('-id')
+    else:
+        ingresos = []
     cntxt = {
-        'usuario': usuario, 'ingresos': ingresos, 'el_saldo': el_saldo, 'admin': admin,
+        'usuario': usuario, 'ingresos': ingresos, 'el_saldo': el_saldo, 'admin': admin,'temporadas': temporadas,
         }
     return render(request,'backend/reporte_ingresos.html',cntxt)
 
 @login_required(login_url="/")
 def reporte_egresos(request):
+    temporadas = Apertura.objects.all()
     usuario = Socio.objects.get(username=request.user.username)
-    egresos = Egreso.objects.all().order_by('-id')
     ingresoSocio = Ingreso.objects.filter(socio=usuario)
     temporada = Apertura.objects.get(is_active=True)
     totalI = 0
@@ -376,28 +381,26 @@ def reporte_egresos(request):
         admin = usuario.groups.get(name='backend')
     except:
         admin = False
+    if request.method == 'POST':
+        apert = request.POST.get("apertura")
+        egresos = Egreso.objects.filter(apertura=Apertura.objects.get(id=apert)).order_by('-id')
+    else:
+        egresos = []
     cntxt = {
-        'usuario': usuario, 'egresos': egresos, 'el_saldo': el_saldo, 'admin': admin,
+        'usuario': usuario, 'egresos': egresos, 'el_saldo': el_saldo, 'admin': admin,'temporadas': temporadas,
         }
     return render(request,'backend/reporte_egresos.html',cntxt)
 
 @login_required(login_url="/")
 def reporte_general(request):
+    temporadas = Apertura.objects.all()
+    print temporadas
     usuario = Socio.objects.get(username=request.user.username)
-    egresos = Egreso.objects.all().order_by('-id')
-    ingresos = Ingreso.objects.all().order_by('-id')
-    total_egresos = 0
-    total_ingresos = 0
-    for i in egresos:
-        total_egresos = i.monto+total_egresos
-    for i in ingresos:
-        total_ingresos = i.monto+total_ingresos
-    saldo = total_ingresos-total_egresos
     try:
         admin = usuario.groups.get(name='backend')
     except:
         admin = False
-    hoy = time.strftime('%d/%m/%y')
+
     ingresoSocio = Ingreso.objects.filter(socio=usuario)
     temporada = Apertura.objects.get(is_active=True)
     totalI = 0
@@ -405,8 +408,33 @@ def reporte_general(request):
         totalI = i.monto+totalI
     el_saldo = temporada.monto_apertura-totalI
 
+    if request.method == 'POST':
+        apert = request.POST.get("apertura")
+        egresos = Egreso.objects.filter(apertura=Apertura.objects.get(id=apert)).order_by('-id')
+        ingresos = Ingreso.objects.filter(apertura=Apertura.objects.get(id=apert)).order_by('-id')
+        total_egresos = 0
+        total_ingresos = 0
+        for i in egresos:
+            total_egresos = i.monto+total_egresos
+        for i in ingresos:
+            total_ingresos = i.monto+total_ingresos
+        saldo = total_ingresos-total_egresos
+    else:
+        total_ingresos = 0
+        total_egresos = 0
+        saldo = 0
+    hoy = time.strftime('%d/%m/%y')
+    
+
     cntxt = {
-        'usuario': usuario, 'total_ingresos': total_ingresos,'total_egresos': total_egresos, 'saldo':saldo, 'hoy': hoy, 'el_saldo': el_saldo, 'admin': admin,
+        'usuario': usuario,
+        'total_ingresos': total_ingresos,
+        'total_egresos': total_egresos,
+        'saldo':saldo,
+        'hoy': hoy,
+        'el_saldo': el_saldo,
+        'admin': admin,
+        'temporadas': temporadas,
         }
     return render(request,'backend/reporte_general.html',cntxt)
 
@@ -646,3 +674,21 @@ def borrar_fotos(request,id):
     datos = get_object_or_404(Fotos, pk=id)
     datos.delete()
     return HttpResponseRedirect('/administracion/galeria_fotos')
+
+def activar_socio(request):
+    usuario = Socio.objects.get(username=request.user.username)
+    ingresos = Ingreso.objects.filter(socio=usuario)
+    temporada = Apertura.objects.get(is_active=True)
+    totalI = 0
+    for i in ingresos:
+        totalI = i.monto+totalI
+    el_saldo = temporada.monto_apertura-totalI
+    try:
+        admin = usuario.groups.get(name='backend')
+    except:
+        admin = False
+    socios = Socio.objects.all()
+    cntxt = {
+        'socios':socios,'el_saldo': el_saldo, 'admin': admin, 'usuario': usuario,
+    }
+    return render (request,'backend/activar_socio.html',cntxt)

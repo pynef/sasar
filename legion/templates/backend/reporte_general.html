@@ -6,8 +6,8 @@
           <label for="id_nombre">Temporada:</label>
             <select name="apertura" id="id_apertura" class="form-control" required>
               <option></option>
-              {% for temporad in temporadas_totales %}
-                <option value="{{temporad.id}}" >{{temporad.temporada}}</option>
+              {% for temporada in temporadas %}
+                <option value="{{temporada.id}}" >{{temporada.temporada}}</option>
               {% endfor %}
             </select>
         </p>
