@@ -41,10 +41,32 @@
                 <form name="aperturaForm" action="" method="post" class="col-md-6">
                     {% csrf_token %}
                     {{form.as_p}}
+
+
+                  <p>
+                    <label for="id_cargo">Cargo:</label>
+                    <select name="cargo" id="id_cargo" class="form-control" required>
+                      <option></option>
+                      {% for cargo in cargos %}
+                        <option value="{{cargo.id}}" >{{cargo.nombre}}</option>
+                      {% endfor %}
+                    </select>
+                  </p>
+                  <p>
+                    <label for="id_socio">Socio:</label>
+                    <select name="socio" id="id_socio" class="form-control" required>
+                      <option></option>
+                      {% for socio in socios %}
+                        <option value="{{socio.id}}" >{{socio.first_name}} {{socio.last_name}}</option>
+                      {% endfor %}
+                    </select>
+                  </p>
+
+
+
                     <p> 
                         <input type="submit" class="btn btn-large btn-success" value="Crear Apertura">
                     </p>
-
                 </form>
                 <div class="col-md-6">
 

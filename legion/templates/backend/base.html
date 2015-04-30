@@ -129,10 +129,24 @@
                 <i class="fa fa-user"></i> <span>Cuenta</span>
               </a>
             </li>
-            <li>
-              <a href="{% url 'junta_directiva' %}">
-                <i class="fa fa-th"></i> <span>Junta Directiva</span>
+             <li class="treeview">
+              <a href="#">
+                <i class="fa fa-dashboard"></i> <span>Junta Directiva</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
+              <ul class="treeview-menu">
+                <li>
+                  <a href="{% url 'junta_directiva' %}">
+                    <i class="fa fa-th"></i> <span>Listado</span>
+                  </a>
+                </li>
+                {% if admin %}
+                <li>
+                  <a href="{% url 'nueva_junta_directiva' %}">
+                    <i class="fa fa-th"></i> <span>Nuevo Miembro</span>
+                  </a>
+                </li>
+                {% endif %}
+              </ul>
             </li>
             <li class="treeview">
               <a href="#">

@@ -1,0 +1,62 @@
+{% extends 'backend/base.html' %}
+{% load staticfiles %}
+{% block contenido %}
+
+<div class="row">
+    <div class="reportes-generales tabla-responsive col-lg-8">
+      <table class="table table-hover">
+        <tr>
+          <th>Nombres</th>
+          <th>Cargo</th>
+          <th>Editar</th>
+          <th>Borrar</th>
+        </tr>
+        {% for item in juntas %}
+        <tr>
+          <td>{{ item.socio.first_name }} {{ item.socio.last_name }}</td>
+          <td>{{ item.cargo }}</td>
+          <td class="edit">
+            <a class="" href="{% url 'edit_junta_directiva' item.id %}">
+              EDITAR
+            </a>
+          </td>
+          <td class="edit">
+            <a href="{% url 'borrar_junta_directiva' item.id %}">
+              BORRAR
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <div class="col-lg-4">
+      <h3 class="text-center text-info">Edicion de miembro de la Junta</h3><hr/>
+      <form name="" action="" method="post" class="">{% csrf_token %}
+        <p>
+          <label for="id_cargo">Cargo:</label>
+          <select name="cargo" id="id_cargo" class="form-control" required>
+            {% for cargo in cargos %}
+              <option value="{{cargo.id}}" >{{cargo.nombre}}</option>
+            {% endfor %}
+          </select>
+        </p>
+        <p>
+          <label for="id_socio">Socio:</label>
+          <select name="socio" id="id_socio" class="form-control" required>
+            {% for socio in socios %}
+              <option value="{{socio.id}}" >{{socio.first_name}} {{socio.last_name}}</option>
+            {% endfor %}
+          </select>
+        </p>
+        <p>
+          <input type="hidden" name="apertura" id="id_apertura" value="{{temporada.id}}"/>
+        </p>
+        <p> 
+          <input type="submit" class="btn btn-large btn-success" value="Ingresar Pago">
+        </p>
+
+      </form>
+    </div>
+</div>
+
+{% endblock contenido %}

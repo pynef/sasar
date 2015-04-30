@@ -2,7 +2,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.forms import ModelForm, TextInput, Select, Textarea, FileInput, PasswordInput
-from backend.models import Apertura, Ingreso, Egreso, Socio, GaleriaFotos, User, Noticias, Banner, Fotos
+from backend.models import Apertura, Ingreso, Egreso, Socio, GaleriaFotos, User, Noticias, Banner, Fotos, JuntaDirectiva
 
 
 class FormSocio(ModelForm):
@@ -28,9 +28,12 @@ class FormIngreso(ModelForm):
     class Meta:
         model = Ingreso
 
+
 class FormEgreso(ModelForm):
     class Meta:
         model = Egreso
+
+
 class formSocios(ModelForm):
     class Meta:
         model = Socio
@@ -64,9 +67,11 @@ class FormGaleriaFotos(ModelForm):
     class Meta:
         model = GaleriaFotos
 
+
 class FormFotos(ModelForm):
     class Meta:
         model = Fotos
+
 
 class FormGaleriaFotosEdit(ModelForm):
     class Meta:
@@ -121,6 +126,8 @@ class FormNoticias(ModelForm):
             'titulo': TextInput(attrs={'class': 'form-control form-space'}),
             'descripcion': Textarea(attrs={'cols': 23, 'rows': 2,'class':'form-control form-space'}),
         }
+
+
 class FormBanner(ModelForm):
     class Meta:
         model = Banner
@@ -133,3 +140,7 @@ class FormBanner(ModelForm):
             'descripcion': Textarea(attrs={'cols': 23, 'rows': 2,'class':'form-control form-space'}),
         }
         
+
+class FormJuntaDirectiva(ModelForm):
+    class Meta:
+        model = JuntaDirectiva

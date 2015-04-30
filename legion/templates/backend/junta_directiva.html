@@ -8,8 +8,7 @@
         <tr>
           <th>Portada</th>
           <th>DNI</th>
-          <th>Nombres</th>
-          <th>Apellidos</th>
+          <th>Nombres y Apellidos</th>
           <th>Ocupacion</th>
           <th>Cargo</th>
           <th>Ver más</th>
@@ -20,8 +19,7 @@
                 <img id="image_directiva" src="{{MEDIA_URL}}{{item.socio.picture}}" />
             </td>
             <td class="texto-center">{{item.socio.dni }}</td>
-            <td>{{item.socio.first_name }}</td>
-            <td>{{item.socio.last_name }}</td>
+            <td>{{item.socio.first_name }} {{item.socio.last_name }}</td>
             <td>{{item.socio.ocupacion }}</td>
             <td>{{item.cargo }}</td>
             <td>

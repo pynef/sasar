@@ -27,7 +27,10 @@
         <div class="col-lg-3"></div>
             <div class="col-lg-7 login">
               <div class="row">
-                <img class="col-lg-4" src="{% static 'img/logo/logo.png' %}" />
+                <a class="text-center col-lg-4" href="{% url 'home' %}">
+                  <img class="" src="{% static 'img/logo/logo.png' %}" />
+                  <h2 class="text-success">Página Principal</h2>
+                </a>
                 <form class="form-signin col-lg-8" role="form" method="POST" action="">{% csrf_token %}
                   <h2 class="form-signin-heading text-primary text-center">Ingresar al Sistema</h2>
                   <hr class="featurette-divider">
