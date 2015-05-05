@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('backend.views',
+    url(r'administracion/apertura_inactiva$','apertura_inactiva',name='apertura_inactiva'),
 	url(r'administracion/$','index',name='index'),
 	url(r'administracion/junta_directiva/$','junta_directiva',name='junta_directiva'),
     url(r'administracion/nueva_junta_directiva/$','nueva_junta_directiva',name='nueva_junta_directiva'),

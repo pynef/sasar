@@ -1,15 +1,5 @@
 {% extends 'backend/base.html' %}
 {% load staticfiles %}
-{% block style %}
-<style type="text/css">
-.edicion_tabla tr input{
-  margin-bottom: 10px;
-}
-th label{
-  display: block;
-}
-</style>
-{% endblock style %}
 {% block contenido %}
 
   <div class="row">
@@ -35,7 +25,7 @@ th label{
       </a>
     </td>
     <td class="edit">
-      <a href="{% url 'borrar_galeria_imagenes' item.id %}">
+      <a href="{% url 'borrar_fotos' item.id %}">
         BORRAR
       </a>
     </td>
@@ -43,19 +33,28 @@ th label{
         {% endfor %}
       </table>
     </div>
-
-    <h3 class="text-center text-info">EDICION DE GALERIA DE IMAGENES</h3><hr/>
-    <form  method='post' action='' class="col-lg-4" role="form" enctype="multipart/form-data">{% csrf_token %}
-          <table class="edicion_tabla">
-          {{formulario.as_p}}
-          </table>
-          <hr/>
-          <div class="row">
-            <button class="col-lg-5 btn btn-success btn-lg" type="submit">Guardar</button>
-            <span class="col-lg-1"></span>
-            <a class="col-lg-5 btn btn-danger btn-lg" href="{% url 'galeria_imagenes' %}">Cancelar</a>
-          </div>        
-      </form>
+    <div class="col-lg-4">
+      <h3 class="text-center text-info">EDITAR LA IMAGEN</h3><hr/>
+      <form  method='post' action='' role="form" enctype="multipart/form-data">{% csrf_token %}
+          <p>
+            <label for="id_nombre">Foto:</label>
+            <input type="file" name="nombre" id="id_nombre" class="form-control" value="{{MEDIA_URL}}{{imagen.nombre}}"/>
+          </p>
+          <p>
+            <label for="id_titulo">Titulo:</label>
+            <input type="text" name="titulo" id="id_titulo" class="form-control" value="{{imagen.titulo}}" />
+          </p>
+          <p>
+            <label for="id_descripcion">Descripcion</label>
+            <textarea name="descripcion" id="id_descripcion" class="form-control">{{imagen.descripcion}}</textarea>
+          </p>
+          <input type="hidden" name="socio" id="id_socio" value="{{usuario.id}}" class="form-control" />
+            <div class="row">
+              <span class="col-lg-6"></span>
+              <button class="col-lg-5 btn btn-success btn-lg" type="submit">Guardar</button>
+            </div>        
+        </form>
+      </div>
     </div>
 
 {% endblock contenido %}

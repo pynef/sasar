@@ -100,8 +100,8 @@ def fotos_galeria(request):
     print fotoGaleria
     return render(request,'frontend/fotos_galeria.html',cntxt)
 
-def galeria_de_fotos(request):
-    return render(request,'frontend/galeria_de_fotos.html')
+def galeria_multimedia(request):
+    return render(request,'frontend/galeria_multimedia.html')
 
 def videos_galeria(request):
     videosSocios = Socio.objects.all()
@@ -109,3 +109,10 @@ def videos_galeria(request):
         'videosSocios':videosSocios,
     }
     return render(request, 'frontend/videos_galeria.html', cntxt)
+
+def video(request,id):
+    socio = Socio.objects.get(id=id)
+    cntxt={
+        'socio':socio,
+    }
+    return render(request,'frontend/video.html',cntxt)

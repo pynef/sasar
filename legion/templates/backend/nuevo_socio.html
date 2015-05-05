@@ -3,7 +3,7 @@
 {% block contenido %}
 
 	<div class="row container">
-		<form  method='post' action='' class="form-signin">{% csrf_token %}
+		<form  method='post' action='' class="col-lg-6 form-signin">{% csrf_token %}
 	        <h2 class="form-signin-heading text-center">Agregando Personal</h2>
 	        <table>
 	        	<tr>
@@ -38,6 +38,14 @@
 	            </tr>
 	        </table>
 	    </form>
+	    <div class="col-lg-6">
+	    	<br/><br/><br/><br/><br/><br/>
+	    	{% if mensaje|length == 0 %}
+	    	<h2 class="text-danger">No se pudo registrar al usuario <br/> revise bien los datos</h2>
+	    	{% else %}
+	    	<h2 class="text-success">{{mensaje}}</h2>
+	    	{% endif %}
+	    </div>
 	</div>
 
 {% endblock contenido %}

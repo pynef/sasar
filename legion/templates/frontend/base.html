@@ -15,7 +15,6 @@
     <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" />
     <link href="{% static 'bootstrap/css/carousel.css' %}" rel="stylesheet" />
     <link href="{% static 'bootstrap/css/navbar.css' %}" rel="stylesheet" />
-    <link href="{% static 'plugins/fancybox/jquery.fancybox.css' %}" rel="stylesheet" />
     {% block css %}{% endblock css %}
     {% block style %}{% endblock style %}
     
@@ -55,7 +54,14 @@
                     <li><a href="{% url 'las_noticias' %}">Noticias</a></li>
                   </ul>
                 </li>
-                <li id="galeria"><a href="{% url 'galeria_de_fotos' %}">Galeria Multimedia</a></li>
+                <li id="galeria" class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Galeria Multimedia <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li id="galeria"><a href="{% url 'fotos_galeria' %}">Galeria de Imagenes</a></li>
+                    <li id="galeria"><a href="{% url 'videos_galeria' %}">Galeria de Videos</a></li>
+                    <li id="galeria"><a href="{% url 'fotos_socios' %}">Imagenes de Socios</a></li>
+                  </ul>
+                </li>
                 {% if user.is_authenticated %}
                 {{usuario.gro}}
                     <li class=""><a href="{% url 'index' %}">Ingresar al Sistema</a></li>

@@ -21,10 +21,10 @@
       </header>
       <section class="box-body">
         {% if temporada.is_active %}
-        <form class="finTemporadaForm" action="{% url 'cierre_temporada' %}" method="post">
+        <form class="finTemporadaForm" id="finTemporadaForm" action="{% url 'cierre_temporada' %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="apertura_id" value="{{temporada.id}}">
-            <input type="submit" class="btn btn-big btn-primary" value="Terminar Temporada" >
+            <buttom id="cerrar_apertura" class="btn btn-big btn-primary">Terminar Temporada</button>
         </form>
         {% endif %}
       </section>
@@ -86,6 +86,15 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $(".data-input").inputmask();
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#cerrar_apertura").click(function(){
+               if(confirm('¿Está seguro cerrar la temporada" ? \n')){
+                $('#finTemporadaForm').submit();
+               }                
+            });
         });
     </script>
 {% endblock scripts %}

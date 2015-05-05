@@ -1,0 +1,19 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="video del socio">
+    <meta name="author" content="Nefi Arroyo">
+    <link rel="icon" href="">
+    <title>Signin Template for Bootstrap</title>
+	<link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" />
+  </head>
+  <body>
+	<video width="100%" height="100%" style="margin:1px;padding:-1px;" controls>
+	  <source src="{{MEDIA_URL}}{{socio.video}}" type="video/mp4">Video
+	</video>
+  </body>
+</html>

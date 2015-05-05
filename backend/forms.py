@@ -1,4 +1,11 @@
 # -*- encoding: utf-8 -*-
+#-*- coding:utf-8 -*-
+
+from django.contrib.auth.models import User,Group
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect, HttpResponse
+from backend.models import Apertura, JuntaDirectiva, Cargo, Socio
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.forms import ModelForm, TextInput, Select, Textarea, FileInput, PasswordInput
@@ -10,10 +17,10 @@ class FormSocio(ModelForm):
         model = Apertura
         exclude =  [
                     'is_active',
-                    'saldo_anterior'
+                    'saldo_anterior',
+                    'user',
                     ]
         widgets={
-            'username': TextInput(attrs={'class': 'form-control'}),
             'monto_apertura': TextInput(attrs={'class': 'form-control', 'type':'number', 'min-length':'2' }),
             'temporada': TextInput(attrs={'class': 'form-control'}),
             'inicio': TextInput(attrs={'class': 'form-control data-input', 
@@ -105,7 +112,7 @@ class userForm(ModelForm):
                     'groups']
         widgets = {
             'password': forms.PasswordInput(),
-            'dni': TextInput(attrs={'class': 'form-control'}),
+            'dni': TextInput(attrs={'class': 'form-control','type': 'number','maxlength':'8'}),
             'username': TextInput(attrs={'class': 'form-control'}),
             'first_name': TextInput(attrs={'class': 'form-control'}),
             'last_name': TextInput(attrs={'class': 'form-control'}),

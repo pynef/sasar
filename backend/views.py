@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from legion.decoratos import backend_login,frontend_login, apertura_activa, presidente
+from legion.decoratos import backend_login,frontend_login, apertura_activa, presidente, apertura_inactiva
 from backend.forms import FormSocio, FormIngreso, FormEgreso, formSocios, FormGaleriaFotos, FormGaleriaFotosEdit, FormSocioVideo, userForm, FormNoticias, FormBanner, FormFotos, FormJuntaDirectiva
 from backend.models import Socio,JuntaDirectiva,GaleriaFotos, Noticias, Banner, Fotos
 from backend.models import Apertura, Ingreso, Socio, Egreso, JuntaDirectiva, Categoria, Cargo
@@ -35,6 +35,34 @@ def temporada(request):
     cargos = Cargo.objects.all()
     usuario = Socio.objects.get(username=request.user.username)
     temporada = Apertura.objects.all().order_by('-id')[0]
+    ingresos = Ingreso.objects.filter(socio=usuario)
+    try:
+        temporadas = Apertura.objects.get(is_active=True)
+        totalI = 0
+        for i in ingresos:
+            totalI = i.monto+totalI
+        el_saldo = temporadas.monto_apertura-totalI
+    except:
+        admin = False
+        el_saldo = 0
+    try:
+        admin = JuntaDirectiva.objects.filter(socio=Socio.objects.get(id=usuario.id)).filter(apertura__is_active=True)
+    except:
+        admin = False
+    ctx = {
+      'temporada' : temporada,
+      'usuario': usuario,
+      'el_saldo': el_saldo,
+      'admin': admin,
+    }
+    return render(request, 'backend/apertura.html', ctx)
+
+@apertura_inactiva
+def apertura_inactiva(request):
+    socios = Socio.objects.all()
+    cargos = Cargo.objects.all()
+    usuario = Socio.objects.get(username=request.user.username)
+    temporada = Apertura.objects.all().order_by('-id')[0]
     print "temporada"
     print temporada
     print temporada.is_active
@@ -52,10 +80,25 @@ def temporada(request):
             form = FormSocio(request.POST)
             form.saldo_anterior = temporada.saldo_anterior
             if form.is_valid():
+                idsocio = request.POST.get('socio')
                 nueva_temporada = form.save()
+                nueva_temporada.user = usuario
                 nueva_temporada.saldo_anterior = temporada.saldo
                 nueva_temporada.save()
                 temporada = nueva_temporada
+
+                junta = JuntaDirectiva.objects.create(
+                    socio = Socio.objects.get(id=idsocio),
+                    apertura = nueva_temporada,
+                    cargo = Cargo.objects.get(id=1)
+                    )
+                junta.save()
+
+                grupo = Group.objects.get(name="backend")
+                soc = Socio.objects.get(id=idsocio)
+                soc.groups.add(grupo)
+                soc.save()
+                return HttpResponseRedirect(reverse('temporada'))
             else:
                 print form
                 pass
@@ -68,13 +111,15 @@ def temporada(request):
     except:
         admin = False
     ctx = {
+      'cargos' : cargos,
+      'socios' : socios,
       'temporada' : temporada,
       'form': form,
       'usuario': usuario,
       'el_saldo': el_saldo,
       'admin': admin,
     }
-    return render(request, 'backend/apertura.html', ctx)
+    return render(request, 'backend/apertura_inactiva.html', ctx)
 
 @backend_login
 def cierre_temporada(request):
@@ -111,6 +156,7 @@ def ingreso(request):
         formulario = FormIngreso(request.POST)
         if formulario.is_valid():
             ingreso=formulario.save()
+            return HttpResponseRedirect(reverse('ingreso'))
         else:
             print formulario
     else:
@@ -140,6 +186,7 @@ def egresos(request):
         formulario = FormEgreso(request.POST)
         if formulario.is_valid():
             ingreso=formulario.save()
+            return HttpResponseRedirect(reverse('egresos'))
         else:
             print formulario
     else:
@@ -218,7 +265,9 @@ def galeria_video(request):
         formulario = FormSocioVideo(request.POST,request.FILES,instance=usuario)
         if formulario.is_valid():
             formulario.save()
-            return HttpResponseRedirect('/administracion')
+            return HttpResponseRedirect(reverse('galeria_video'))
+        else:
+            print formulario
     else:
         formulario = FormSocioVideo(instance=usuario)
     cntxt = {
@@ -274,10 +323,12 @@ def edit_galeria_imagenes(request,id):
         if formulario.is_valid():
             formulario.save()
             return HttpResponseRedirect('/administracion/galeria_imagenes')
+        else:
+            print formulario
     else:
         formulario = FormGaleriaFotosEdit(instance=imagen)
     cntxt = {
-    'usuario':usuario,'imagenes':imagenes,'formulario':formulario, 'el_saldo': el_saldo, 'admin': admin,
+    'usuario':usuario,'imagen':imagen,'imagenes':imagenes,'formulario':formulario, 'el_saldo': el_saldo, 'admin': admin,
     }
     return render (request,'backend/edit_galeria_imagenes.html',cntxt)
 
@@ -332,11 +383,7 @@ def nueva_junta_directiva(request):
     if request.method=='POST':
         formulario = FormJuntaDirectiva(request.POST)
         grupo = Group.objects.get(name="backend")
-        print "grupo"
-        print grupo
         miembro_sasar = request.POST.get("socio")
-        print "socio"
-        print miembro_sasar
         miembro_nuevo = Socio.objects.get(id=miembro_sasar)
         miembro_nuevo.groups.add(grupo)
         print miembro_nuevo
@@ -585,6 +632,7 @@ def socio_back(request,dni):
 @backend_login
 @apertura_activa
 def nuevo_socio(request):
+    mensaje = ""
     usuario = Socio.objects.get(username=request.user.username)
     ingresoSocio = Ingreso.objects.filter(socio=usuario)
     temporada = Apertura.objects.get(is_active=True)
@@ -598,20 +646,24 @@ def nuevo_socio(request):
         admin = False
     if request.method=='POST':
         formulario = userForm(request.POST)
-        print formulario
         if formulario.is_valid():
             personal = formulario.save()
+            mensaje = "El Usuario " +personal.username + " Fue Registrado"
             pwd = request.POST.get('password')
             personal.set_password(pwd)
             personal.is_active = True
             personal.groups.add(3)
             personal.save()
-            print pwd
-            return HttpResponseRedirect('/administracion/nuevo_socio/')
+            formulario = userForm()
+            # return HttpResponseRedirect('/administracion/nuevo_socio/')
+        else:
+            formulario = userForm()
+            mensaje = ""
     else:
         formulario = userForm()
     cntxt = {
-        'formulario' : formulario, 'el_saldo': el_saldo, 'admin': admin, 'usuario':usuario
+        'formulario' : formulario, 'el_saldo': el_saldo, 'admin': admin, 'usuario':usuario,
+        'mensaje':mensaje,
     }
     return render(request, 'backend/nuevo_socio.html', cntxt)
 
@@ -798,9 +850,14 @@ def edit_fotos(request,id):
     else:
         formulario = FormFotos(instance=imagen)
     cntxt = {
-    'usuario':usuario,'imagenes':imagenes,'formulario':formulario, 'el_saldo': el_saldo, 'admin': admin,
+    'usuario':usuario,
+    'imagenes':imagenes,
+    'formulario':formulario,
+    'el_saldo': el_saldo,
+    'admin': admin,
+    'imagen': imagen,
     }
-    return render (request,'backend/edit_galeria_imagenes.html',cntxt)
+    return render (request,'backend/edit_galeria_fotos.html',cntxt)
 
 @backend_login
 @apertura_activa

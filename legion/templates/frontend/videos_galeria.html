@@ -3,18 +3,18 @@
 {% block css %}
 <link href="{% static 'multimedia/default.css' %}" rel="stylesheet" />
 <link href="{% static 'multimedia/component.css' %}" rel="stylesheet" />
-<script type="text/javascript" src="{% static 'multimedia/modernizr.custom.js' %}"></script>
+<link href="{% static 'plugins/fancybox/jquery.fancybox.css' %}" rel="stylesheet" type="text/css" />
 {% endblock css %}
 {% block script %}
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
-<script type="text/javascript" src="{% static 'multimedia/videos.js' %}"></script>
+<script src="{% static 'plugins/fancybox/jquery.fancybox.js' %}"></script>
 <script type="text/javascript">
 $(document).ready(function(){$("#galeria").addClass("active")});
 </script>
-<script>
-  $(function() {
-    Grid.init();
-  });
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('.fancybox').fancybox();
+    });
 </script>
 {% endblock script %}
 {% block contenido %}
@@ -24,11 +24,13 @@ $(document).ready(function(){$("#galeria").addClass("active")});
       {% if i.video == "" %}
         
       {% else %}
+      <a class="fancybox fancybox.iframe" href="{% url 'video' i.id %}">
         <li style="display:inline">
             <video width="350px" height="300px" controls>
               <source src="{{MEDIA_URL}}{{i.video}}" type="video/mp4">Video
             </video>
         </li>
+      </a>
       {% endif %}
       {% endfor %}
     </ul>

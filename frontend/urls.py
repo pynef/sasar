@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('frontend.views',
+	url(r'^video/(?P<id>\d+)$','video',name='video'),
 	url(r'^$','index',name='index'),
 	url(r'^/$','inicio',name='inicio'),
 	url(r'^home/$','home',name='home'),
@@ -13,7 +14,7 @@ urlpatterns = patterns('frontend.views',
 	url(r'^reglamentos/$','reglamentos',name='reglamentos'),
 	url(r'^quienes_somos/$','quienes_somos',name='quienes_somos'),
 	url(r'^las_noticias/$','las_noticias',name='las_noticias'),
-	url(r'^galeria_de_fotos/$','galeria_de_fotos',name='galeria_de_fotos'),
+	url(r'^galeria_multimedia/$','galeria_multimedia',name='galeria_multimedia'),
 	url(r'^fotos_socios/$','fotos_socios',name='fotos_socios'),
 	url(r'^fotos_galeria/$','fotos_galeria',name='fotos_galeria'),
 	url(r'^videos_galeria/$','videos_galeria',name='videos_galeria'),
