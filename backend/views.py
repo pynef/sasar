@@ -12,12 +12,13 @@ from backend.models import Apertura, Ingreso, Socio, Egreso, JuntaDirectiva, Cat
 import time
 import os
 
+@backend_login
 @apertura_activa
-def home(request):
+def homes(request):
     usuario = Socio.objects.get(username=request.user.username)
-    print "home"
+    print "homes"
     print apertura_activa
-    print "home"
+    print "homes"
     return render(request,'frontend/index.html')
 
 def desactivo(request):
@@ -27,12 +28,16 @@ def desactivo(request):
     }
     return render(request,'backend/desactivo.html',ctx)
 
+
 @backend_login
 def temporada(request):
     socios = Socio.objects.all()
     cargos = Cargo.objects.all()
     usuario = Socio.objects.get(username=request.user.username)
-    temporada = Apertura.objects.all().order_by('-fin')[0]
+    temporada = Apertura.objects.all().order_by('-id')[0]
+    print "temporada"
+    print temporada
+    print temporada.is_active
     ingresos = Ingreso.objects.filter(socio=usuario)
     try:
         temporadas = Apertura.objects.get(is_active=True)
@@ -145,6 +150,7 @@ def egresos(request):
     return render(request, 'backend/egresos.html',ctx)
 
 @apertura_activa
+@login_required(login_url="/")
 def index(request):
     print "endro a backend desde inicios"
     usuario = Socio.objects.get(username=request.user.username)

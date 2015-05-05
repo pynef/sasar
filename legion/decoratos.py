@@ -29,7 +29,9 @@ def presidente(view_func):
 def backend_login(view_func):
     def wrap(request, *args, **kwargs):
         is_sec = request.user.groups.filter(name='backend').count()
-        apertura = JuntaDirectiva.objects.filter(socio=Socio.objects.get(id=request.user.id)).filter(apertura__is_active=True).filter(cargo=Cargo.objects.get(id=1))
+        apertura = JuntaDirectiva.objects.filter(socio=Socio.objects.get(id=request.user.id)).filter(apertura__is_active=True)
+        print "backend apertura"
+        print request.user.id
         if apertura:
             if request.user.is_authenticated() and is_sec :
                 return view_func( request=request,*args, **kwargs )
