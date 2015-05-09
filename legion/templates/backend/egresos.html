@@ -19,18 +19,18 @@
               <form name="" action="" method="post" class="col-md-5">{% csrf_token %}
                   <p>
                     <label for="id_monto_apertura">N° de Recibo:</label>
-                    <input type="text" name="recibo" id="id_recibo" class="form-control" />
+                    <input type="text" name="recibo" id="id_recibo" class="form-control" required />
                   </p>
                   <p>
                     <label for="id_temporada">Concepto</label>
-                    <input type="text" name="concepto" id="id_concepto" class="form-control" />
+                    <input type="text" name="concepto" id="id_concepto" class="form-control" required/>
                   </p>
                   <p>
                     <input type="hidden" name="socio" id="id_socio" class="form-control" value="{{usuario.id}}" />
                   </p>
                   <p>
                     <label for="id_inicio">Monto a Pagar:</label>
-                    <input type="number" name="monto" id="id_monto" class="form-control" />
+                    <input type="number" name="monto" id="id_monto" class="form-control" required/>
                   </p>
                   <p>
                     <input type="hidden" name="apertura" id="id_apertura" value="{{apertura.id}}"/>
@@ -74,7 +74,7 @@
             {{pagos.monto}} soles
           </span>
         </td>
-        <td>{{pagos.create_at}}</td>
+        <td>{{pagos.create_at|date:"SHORT_DATE_FORMAT"}}</td>
       </tr>
       {% endfor %}
     </tbody></table>

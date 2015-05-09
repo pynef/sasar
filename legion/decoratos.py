@@ -9,11 +9,7 @@ def apertura_inactiva(view_func):
     def wrap(request, *args, **kwargs):
         is_sec = request.user.groups.filter(name='backend').count()
         ultima_apertura = Apertura.objects.all().order_by('-id')[0]
-        print "ultima_apertura"
-        print ultima_apertura
         apertura = JuntaDirectiva.objects.filter(socio=Socio.objects.get(id=request.user.id)).filter(apertura=ultima_apertura).filter(cargo=1)
-        print "apertura"
-        print apertura
         if apertura:
             if request.user.is_authenticated() and is_sec :
                 return view_func( request=request,*args, **kwargs )

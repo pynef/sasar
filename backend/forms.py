@@ -61,10 +61,10 @@ class formSocios(ModelForm):
             'email': TextInput(attrs={'class': 'form-control'}),
             'resumen': TextInput(attrs={'class': 'form-control'}),
             'direccion': TextInput(attrs={'class': 'form-control'}),
-            'dni': TextInput(attrs={'class': 'form-control'}),
+            'dni': TextInput(attrs={'class': 'form-control','type': 'number','maxlength':'8 required'}),
             'ocupacion': TextInput(attrs={'class': 'form-control'}),
             'residencia': TextInput(attrs={'class': 'form-control'}),
-            'categoria': Select(attrs={'class': 'form-control', 'disabled': 'disabled'}),
+            'categoria': Select(attrs={'class': 'form-control','readonly':'readonly'}),
             'orden_parada': TextInput(attrs={'class': 'form-control', 'disabled': 'disabled'}),
             'avatar': FileInput(attrs={'class': 'form-control'}),
         }
@@ -73,6 +73,11 @@ class formSocios(ModelForm):
 class FormGaleriaFotos(ModelForm):
     class Meta:
         model = GaleriaFotos
+        widgets={
+            'username': TextInput(attrs={'class': 'form-control','readonly':'readonly'}),
+            'first_name': TextInput(attrs={'class': 'form-control'}),
+            'last_name': TextInput(attrs={'class': 'form-control'}),
+        }
 
 
 class FormFotos(ModelForm):
@@ -112,14 +117,14 @@ class userForm(ModelForm):
                     'groups']
         widgets = {
             'password': forms.PasswordInput(),
-            'dni': TextInput(attrs={'class': 'form-control','type': 'number','maxlength':'8'}),
-            'username': TextInput(attrs={'class': 'form-control'}),
-            'first_name': TextInput(attrs={'class': 'form-control'}),
-            'last_name': TextInput(attrs={'class': 'form-control'}),
-            'email': TextInput(attrs={'class': 'form-control'}),
+            'dni': TextInput(attrs={'class': 'form-control','type': 'number','maxlength':'8','pattern':'.{8,}','required':'required'}),
+            'username': TextInput(attrs={'class': 'form-control','required':'required'}),
+            'first_name': TextInput(attrs={'class': 'form-control','required':'required'}),
+            'last_name': TextInput(attrs={'class': 'form-control','required':'required'}),
+            'email': TextInput(attrs={'class': 'form-control','required':'required'}),
             'orden_parada': TextInput(attrs={'class': 'form-control data-input', 
                                     'data-inputmask': "'alias': 'dd/mm/yyyy'",
-                                    'data-mask':''}),
+                                    'data-mask':'','type':'date','required':'required'}),
         }
 
 class FormNoticias(ModelForm):
@@ -129,9 +134,9 @@ class FormNoticias(ModelForm):
                     'picture','titulo','descripcion','user',
                     ]
         widgets = {
-            'picture': FileInput(attrs={'class': 'form-control form-space'}),
-            'titulo': TextInput(attrs={'class': 'form-control form-space'}),
-            'descripcion': Textarea(attrs={'cols': 23, 'rows': 2,'class':'form-control form-space'}),
+            'picture': FileInput(attrs={'class': 'form-control form-space','required':'required'}),
+            'titulo': TextInput(attrs={'class': 'form-control form-space','required':'required'}),
+            'descripcion': Textarea(attrs={'cols': 23, 'rows': 2,'class':'form-control form-space','required':'required'}),
         }
 
 
@@ -142,9 +147,9 @@ class FormBanner(ModelForm):
                     'picture','titulo','descripcion','user',
                     ]
         widgets = {
-            'picture': FileInput(attrs={'class': 'form-control form-space'}),
-            'titulo': TextInput(attrs={'class': 'form-control form-space'}),
-            'descripcion': Textarea(attrs={'cols': 23, 'rows': 2,'class':'form-control form-space'}),
+            'picture': FileInput(attrs={'class': 'form-control form-space','required':'required'}),
+            'titulo': TextInput(attrs={'class': 'form-control form-space','required':'required'}),
+            'descripcion': Textarea(attrs={'cols': 23, 'rows': 2,'class':'form-control form-space','required':'required'}),
         }
         
 

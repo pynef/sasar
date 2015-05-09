@@ -34,21 +34,21 @@
       </table>
     </div>
     <div class="col-lg-4">
-      <h3 class="text-center text-info">INGRESAR IMAGEN A LA GALERIA DE IMAGENES</h3><hr/>
+      <h3 class="text-center text-info">INGRESAR IMAGEN A LA GALERIA</h3><hr/>
       <form  method='post' action='' role="form" enctype="multipart/form-data">{% csrf_token %}
           <p>
-            <label for="id_nombre">Nombre:</label>
-            <input type="file" name="nombre" id="id_nombre" class="form-control" />
+            <label for="id_nombre">Imagen:</label>
+            <input type="file" name="nombre" id="id_nombre" class="form-control" required/>
           </p>
           <p>
             <label for="id_titulo">Titulo:</label>
-            <input type="text" name="titulo" id="id_titulo" class="form-control" />
+            <input type="text" name="titulo" id="id_titulo" class="form-control" required />
           </p>
           <p>
             <label for="id_descripcion">Descripcion</label>
             <textarea name="descripcion" id="id_descripcion" class="form-control"></textarea>
           </p>
-          <input type="hidden" name="socio" id="id_socio" value="{{usuario.id}}" class="form-control" />
+          <input type="hidden" name="socio" id="id_socio" value="{{usuario.id}}" class="form-control" required />
             <div class="row">
               <span class="col-lg-6"></span>
               <button class="col-lg-5 btn btn-success btn-lg" type="submit">Guardar</button>

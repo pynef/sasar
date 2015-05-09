@@ -43,7 +43,7 @@
           <th>{{i.socio.first_name}}</th>
           <th>{{i.socio.last_name}}</th>
           <th>{{i.monto}}</th>
-          <th>{{i.update_at}}</th>
+          <th>{{i.update_at|date:"SHORT_DATE_FORMAT"}}</th>
         </tr>
         {% endfor %}
         <tr>

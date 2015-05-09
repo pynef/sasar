@@ -24,7 +24,7 @@ $(document).ready(function(){$("#informe").addClass("active")});
             <td class="texto-center">{{ item.last_name }}</td>
             <td class="texto-center">{{ item.first_name }}</td>
             <td class="texto-center">{{ item.email }}</td>
-            <td class="texto-center">{{ item.orden_parada }}</td>
+            <td class="texto-center">{{ item.orden_parada|date:"SHORT_DATE_FORMAT" }}</td>
             <td class="texto-center">
                 {% if item.is_active %}
                 <p class="text-info">SI</p>

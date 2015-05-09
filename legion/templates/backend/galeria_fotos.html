@@ -38,15 +38,15 @@
       <form  method='post' action='' role="form" enctype="multipart/form-data">{% csrf_token %}
           <p>
             <label for="id_foto">Foto:</label>
-            <input type="file" name="foto" id="id_foto" class="form-control" />
+            <input type="file" name="foto" id="id_foto" class="form-control" required/>
           </p>
           <p>
             <label for="id_titulo">Titulo:</label>
-            <input type="text" name="titulo" id="id_titulo" class="form-control" />
+            <input type="text" name="titulo" id="id_titulo" class="form-control" required/>
           </p>
           <p>
             <label for="id_descripcion">Descripcion</label>
-            <textarea name="descripcion" id="id_descripcion" class="form-control"></textarea>
+            <textarea name="descripcion" id="id_descripcion" class="form-control" required></textarea>
           </p>
           <input type="hidden" name="socio" id="id_socio" value="{{usuario.id}}" class="form-control" />
             <div class="row">
