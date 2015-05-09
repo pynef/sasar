@@ -55,9 +55,9 @@ class formSocios(ModelForm):
                     'is_active',
                     ]
         widgets={
-            'username': TextInput(attrs={'class': 'form-control','readonly':'readonly'}),
-            'first_name': TextInput(attrs={'class': 'form-control','readonly':'readonly'}),
-            'last_name': TextInput(attrs={'class': 'form-control','readonly':'readonly'}),
+            'username': TextInput(attrs={'class': 'form-control'}),
+            'first_name': TextInput(attrs={'class': 'form-control'}),
+            'last_name': TextInput(attrs={'class': 'form-control'}),
             'email': TextInput(attrs={'class': 'form-control'}),
             'resumen': TextInput(attrs={'class': 'form-control'}),
             'direccion': TextInput(attrs={'class': 'form-control'}),
