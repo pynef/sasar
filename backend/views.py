@@ -657,6 +657,7 @@ def nuevo_socio(request):
             formulario = userForm()
             # return HttpResponseRedirect('/administracion/nuevo_socio/')
         else:
+            print formulario.errors
             formulario = userForm()
             mensaje = ""
     else:
