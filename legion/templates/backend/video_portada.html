@@ -1,0 +1,33 @@
+{% extends 'backend/base.html' %}
+{% load staticfiles %}
+{% block contenido %}
+
+        <iframe class="col-lg-6" height="350px" src="{{video_portada.nombre}}" frameborder="0" allowfullscreen></iframe>
+        
+		<form class="col-lg-6" method='post' action='' role="form" enctype="multipart/form-data">{% csrf_token %}
+			<h3 class="text-center text-info">CAMBIAR VIDEO</h3>
+			<table>
+				<tbody>
+					<tr>
+						<th>
+							<label>Ingresar la Ruta Del YouTube:</label>
+						</th>
+					</tr>
+	      			<tr>
+						<td>
+		      				{{formulario.nombre}}
+		      			</td>
+	      			</tr>
+	      			<tr>
+	      				<th>
+
+	      				</th>
+	      				<td>
+	      				<br/><button class="btn btn-success btn-lg btn-block" type="submit">Guardar</button>
+	      				</td>
+	      			</tr>
+	      		</tbody>
+	      	</table>
+	    </form>
+
+{% endblock contenido %}

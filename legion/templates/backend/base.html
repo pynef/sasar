@@ -173,15 +173,14 @@
             </li>
             -->
             {% if admin %}
-            
-             <li>
+            <li>
               <a href="{% url 'nuevo_socio' %}">
                 <i class="fa fa-th"></i> <span>Nuevo Socio</span>
               </a>
             </li>
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-dashboard"></i> <span>Avisos</span> <i class="fa fa-angle-left pull-right"></i>
+                <i class="fa fa-dashboard"></i> <span>Pagina Web</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
                 <li>
@@ -190,10 +189,30 @@
                   </a>
                 </li>
                 <li>
-              <a href="{% url 'banner' %}">
-                <i class="fa fa-th"></i> <span>Notificacion</span>
-              </a>
-            </li>
+                  <a href="{% url 'banner' %}">
+                    <i class="fa fa-th"></i> <span>Notificacion</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'video_portada' %}">
+                    <i class="fa fa-th"></i> <span>Video de Entrada</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'admin_responsabilidad_social' %}">
+                    <i class="fa fa-th"></i> <span>Responsabilidad Social</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'portadas' %}">
+                    <i class="fa fa-th"></i> <span>Imagenes de Portada</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'galeria_fotos' %}">
+                    <i class="fa fa-circle-o"></i> Galeria de Imagenes
+                  </a>
+                </li>
               </ul>
             </li>
             
@@ -217,14 +236,6 @@
                         <i class="fa fa-th"></i> <span>Pagos de Salida</span>
                       </a>
                   </li>
-              </ul>
-            </li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-dashboard"></i> <span>Galeria Multimedia</span> <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{% url 'galeria_fotos' %}"><i class="fa fa-circle-o"></i> Galeria de Imagenes</a></li>
               </ul>
             </li>
             {% endif %}

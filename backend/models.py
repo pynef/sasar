@@ -14,6 +14,16 @@ class Categoria(models.Model):
         return '{0}'.format(self.nombre)
 
 
+class VideoPortada(models.Model):
+    '''
+    Los videos de Portada
+    '''
+    nombre = models.CharField(max_length=200)
+
+    def __str__(self):
+        return '{0}'.format(self.nombre)
+
+
 class Cargo(models.Model):
     '''
       Categoria en la que entra
@@ -41,12 +51,27 @@ class Socio(User):
                                 default='default/avatar.png',blank=True, null=True)
     categoria = models.ForeignKey(Categoria,blank=True, null=True)
     video = models.FileField(upload_to="VideoSocio",blank=True, null=True)
+    video_titulo = models.CharField(max_length=150,blank=True, null=True)
+    video_descripcion = models.TextField(blank=True, null=True)
     orden_parada = models.DateField(blank=True, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return '{0}'.format(self.dni)
+
+
+class Portadas(models.Model):
+    '''
+   Imagenes de Portada
+    '''
+    imagen = models.ImageField(upload_to="Portadas/",blank=True, null=True)
+    titulo= models.CharField(max_length=128,blank=True, null=True)
+    descripcion= models.TextField(blank=True, null=True)
+    socio = models.ForeignKey(Socio,blank=True, null=True)
+
+    def __str__(self):
+        return '{0}'.format(self.titulo)
 
 
 class GaleriaFotos(models.Model):
@@ -153,6 +178,22 @@ class Noticias(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User)
+
+    def __str__(self):
+        return '{0}'.format(self.titulo)
+
+class ResponsabilidadSocial(models.Model):
+    '''
+     Lista de las contribuciones a la sociedad que se publicara en el 
+     transcurso del anio; como eventos y otro
+    '''
+    titulo = models.CharField(max_length=128)
+    picture = models.ImageField(upload_to="ResponsabilidadSocial/",blank=True, null=True)
+    descripcion = models.TextField(blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User,blank=True, null=True)
 
     def __str__(self):
         return '{0}'.format(self.titulo)

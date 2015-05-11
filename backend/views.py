@@ -6,9 +6,9 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from legion.decoratos import backend_login,frontend_login, apertura_activa, presidente, apertura_inactiva
-from backend.forms import FormSocio, FormIngreso, FormEgreso, formSocios, FormGaleriaFotos, FormGaleriaFotosEdit, FormSocioVideo, userForm, FormNoticias, FormBanner, FormFotos, FormJuntaDirectiva
-from backend.models import Socio,JuntaDirectiva,GaleriaFotos, Noticias, Banner, Fotos
-from backend.models import Apertura, Ingreso, Socio, Egreso, JuntaDirectiva, Categoria, Cargo
+from backend.forms import FormSocio, FormIngreso, FormEgreso, formSocios, FormGaleriaFotos, FormGaleriaFotosEdit, FormSocioVideo, userForm, FormNoticias, FormBanner, FormFotos, FormJuntaDirectiva, FormResponsabilidadSocial, FormPortadas, FormVideoPortada
+from backend.models import Socio,JuntaDirectiva,GaleriaFotos, Noticias, Banner, Fotos, ResponsabilidadSocial, Portadas
+from backend.models import Apertura, Ingreso, Socio, Egreso, JuntaDirectiva, Categoria, Cargo, VideoPortada
 import time
 import os
 
@@ -63,9 +63,6 @@ def apertura_inactiva(request):
     cargos = Cargo.objects.all()
     usuario = Socio.objects.get(username=request.user.username)
     temporada = Apertura.objects.all().order_by('-id')[0]
-    print "temporada"
-    print temporada
-    print temporada.is_active
     ingresos = Ingreso.objects.filter(socio=usuario)
     try:
         temporadas = Apertura.objects.get(is_active=True)
@@ -714,7 +711,7 @@ def edit_noticias(request,id):
     except:
         admin = False
     if request.method == 'POST':
-        formulario = FormNoticias(request.POST,request.FILES)
+        formulario = FormNoticias(request.POST,request.FILES,instance=noticia)
         if formulario.is_valid():
             print "se guardo la noticia"
             formulario.save()
@@ -885,3 +882,173 @@ def activar_socio(request):
         'socios':socios,'el_saldo': el_saldo, 'admin': admin, 'usuario': usuario,
     }
     return render (request,'backend/activar_socio.html',cntxt)
+
+
+@backend_login
+@apertura_activa
+def admin_responsabilidad_social(request):
+    responsabilidad_sociales = ResponsabilidadSocial.objects.all()
+    usuario = Socio.objects.get(username=request.user.username)
+    ingresos = Ingreso.objects.filter(socio=usuario)
+    temporada = Apertura.objects.get(is_active=True)
+    totalI = 0
+    for i in ingresos:
+        totalI = i.monto+totalI
+    el_saldo = temporada.monto_apertura-totalI
+    try:
+        admin = JuntaDirectiva.objects.filter(socio=Socio.objects.get(id=usuario.id)).filter(apertura__is_active=True)
+    except:
+        admin = False
+    if request.method == 'POST':
+        formulario = FormResponsabilidadSocial(request.POST,request.FILES)
+        if formulario.is_valid():
+            print "se guardo la responsabilidad social"
+            formulario.save()
+            return HttpResponseRedirect('/administracion/admin_responsabilidad_social')
+    else:
+        formulario = FormResponsabilidadSocial()
+        print formulario
+    cntxt = {
+        'usuario':usuario, 'el_saldo': el_saldo, 'admin': admin, 'responsabilidad_sociales': responsabilidad_sociales, 'formulario': formulario,
+        }
+    return render(request,'backend/responsabilidad_social.html',cntxt)
+
+@backend_login
+@apertura_activa
+def edit_responsabilidad_social(request,id):
+    responsabilidad_sociales = ResponsabilidadSocial.objects.all()
+    responsabilidad_social = ResponsabilidadSocial.objects.get(id=id)
+    usuario = Socio.objects.get(username=request.user.username)
+    ingresos = Ingreso.objects.filter(socio=usuario)
+    temporada = Apertura.objects.get(is_active=True)
+    totalI = 0
+    for i in ingresos:
+        totalI = i.monto+totalI
+    el_saldo = temporada.monto_apertura-totalI
+    try:
+        admin = JuntaDirectiva.objects.filter(socio=Socio.objects.get(id=usuario.id)).filter(apertura__is_active=True)
+    except:
+        admin = False
+    if request.method == 'POST':
+        formulario = FormResponsabilidadSocial(request.POST,request.FILES,instance=responsabilidad_social)
+        if formulario.is_valid():
+            print "se guardo la responsabilidad_social"
+            formulario.save()
+            return HttpResponseRedirect('/administracion/admin_responsabilidad_social')
+    else:
+        formulario = FormResponsabilidadSocial(instance=responsabilidad_social)
+        print formulario
+    cntxt = {
+        'usuario':usuario, 'el_saldo': el_saldo, 'admin': admin, 'responsabilidad_sociales': responsabilidad_sociales, 'formulario': formulario,
+        }
+    return render(request,'backend/responsabilidad_social.html',cntxt)
+
+@backend_login
+@apertura_activa
+def del_responsabilidad_social(request,id):
+    datos = get_object_or_404(ResponsabilidadSocial, pk=id)
+    datos.delete()
+    return HttpResponseRedirect('/administracion/admin_responsabilidad_social')
+
+
+
+@backend_login
+@apertura_activa
+def portadas(request):
+    usuario = Socio.objects.get(username=request.user.username)
+    imagenes = Portadas.objects.all().order_by('-id')
+    ingresos = Ingreso.objects.filter(socio=usuario)
+    temporada = Apertura.objects.get(is_active=True)
+    totalI = 0
+    try:
+        admin = JuntaDirectiva.objects.filter(socio=Socio.objects.get(id=usuario.id)).filter(apertura__is_active=True)
+    except:
+        admin = False
+    for i in ingresos:
+        totalI = i.monto+totalI
+    el_saldo = temporada.monto_apertura-totalI
+    if request.method == 'POST':
+        formulario = FormPortadas(request.POST,request.FILES)
+        print formulario
+        if formulario.is_valid():
+            formulario.save()
+            return HttpResponseRedirect('/administracion/portadas')
+    else:
+        formulario = FormPortadas()
+    cntxt = {
+        'imagenes':imagenes, 'formulario':formulario, 'usuario': usuario, 'el_saldo': el_saldo, 'admin': admin,
+        }
+    return render(request,'backend/portadas.html',cntxt)
+
+@backend_login
+@apertura_activa
+def edit_portadas(request,id):
+    usuario = Socio.objects.get(username=request.user.username)
+    imagenes = Portadas.objects.all().order_by('-id')
+    portada = Portadas.objects.get(id=id)
+    ingresos = Ingreso.objects.filter(socio=usuario)
+    temporada = Apertura.objects.get(is_active=True)
+    totalI = 0
+    for i in ingresos:
+        totalI = i.monto+totalI
+    el_saldo = temporada.monto_apertura-totalI
+    try:
+        admin = JuntaDirectiva.objects.filter(socio=Socio.objects.get(id=usuario.id)).filter(apertura__is_active=True)
+    except:
+        admin = False
+    if request.method == 'POST':
+        formulario = FormPortadas(request.POST,request.FILES,instance=portada)
+        if formulario.is_valid():
+            formulario.save()
+            return HttpResponseRedirect('/administracion/portadas')
+    else:
+        formulario = FormPortadas(instance=portada)
+    cntxt = {
+    'usuario':usuario,
+    'imagenes':imagenes,
+    'formulario':formulario,
+    'el_saldo': el_saldo,
+    'admin': admin,
+    }
+    return render (request,'backend/portadas.html',cntxt)
+
+@backend_login
+@apertura_activa
+def del_portadas(request,id):
+    datos = get_object_or_404(Portadas, pk=id)
+    datos.delete()
+    return HttpResponseRedirect('/administracion/portadas')
+
+
+
+@login_required(login_url="/")
+@apertura_activa
+def video_portada(request):
+    video_portada = VideoPortada.objects.get(id=1)
+    usuario = Socio.objects.get(username=request.user.username)
+    print "video_portada.nombre"
+    print video_portada.nombre
+    print "video_portada.nombre"
+    try:
+        admin = JuntaDirectiva.objects.filter(socio=Socio.objects.get(id=usuario.id)).filter(apertura__is_active=True)
+    except:
+        admin = False
+    ingresos = Ingreso.objects.filter(socio=usuario)
+    temporada = Apertura.objects.get(is_active=True)
+    totalI = 0
+    for i in ingresos:
+        totalI = i.monto+totalI
+    el_saldo = temporada.monto_apertura-totalI
+    if request.method == 'POST':
+        formulario = FormVideoPortada(request.POST,request.FILES,instance=video_portada)
+        if formulario.is_valid():
+            formulario.save()
+            return HttpResponseRedirect(reverse('video_portada'))
+        else:
+            print formulario
+    else:
+        formulario = FormVideoPortada(instance=usuario)
+    cntxt = {
+    'usuario':usuario,'formulario':formulario, 'el_saldo': el_saldo, 'admin': admin,'video_portada':video_portada,
+    }
+    return render (request,'backend/video_portada.html',cntxt)

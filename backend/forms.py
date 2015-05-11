@@ -9,7 +9,8 @@ from backend.models import Apertura, JuntaDirectiva, Cargo, Socio
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.forms import ModelForm, TextInput, Select, Textarea, FileInput, PasswordInput
-from backend.models import Apertura, Ingreso, Egreso, Socio, GaleriaFotos, User, Noticias, Banner, Fotos, JuntaDirectiva
+from backend.models import Apertura, Ingreso, Egreso, Socio, GaleriaFotos, User, Noticias, Banner
+from backend.models import Fotos, JuntaDirectiva, ResponsabilidadSocial, Portadas, VideoPortada
 
 
 class FormSocio(ModelForm):
@@ -40,6 +41,13 @@ class FormEgreso(ModelForm):
     class Meta:
         model = Egreso
 
+class FormVideoPortada(ModelForm):
+    class Meta:
+        model = VideoPortada
+        widgets={
+            'nombre': TextInput(attrs={'class': 'form-control'}),
+            }
+
 
 class formSocios(ModelForm):
     class Meta:
@@ -55,7 +63,7 @@ class formSocios(ModelForm):
                     'is_active',
                     ]
         widgets={
-            'username': TextInput(attrs={'class': 'form-control'}),
+            'username': TextInput(attrs={'class': 'form-control','maxlength':'8'}),
             'first_name': TextInput(attrs={'class': 'form-control'}),
             'last_name': TextInput(attrs={'class': 'form-control'}),
             'email': TextInput(attrs={'class': 'form-control'}),
@@ -84,6 +92,17 @@ class FormFotos(ModelForm):
     class Meta:
         model = Fotos
 
+class FormPortadas(ModelForm):
+    class Meta:
+        model = Portadas
+        fields  =  [
+                    'imagen','titulo','descripcion','socio',
+                    ]
+        widgets = {
+            'imagen': FileInput(attrs={'class': 'form-control form-space'}),
+            'titulo': TextInput(attrs={'class': 'form-control form-space'}),
+            'descripcion': Textarea(attrs={'cols': 23, 'rows': 2,'class':'form-control form-space'}),
+        }
 
 class FormGaleriaFotosEdit(ModelForm):
     class Meta:
@@ -101,8 +120,12 @@ class FormSocioVideo(ModelForm):
     class Meta:
         model = Socio
         fields  =  [
-                    'video',
+                    'video','video_titulo', 'video_descripcion',
                     ]
+        widgets={
+            'video_titulo': TextInput(attrs={'class': 'form-control'}),
+            'video_descripcion': Textarea(attrs={'cols': 23, 'rows': 2,'class':'form-control'}),
+        }
 
 class userForm(ModelForm):
     class Meta():
@@ -134,11 +157,22 @@ class FormNoticias(ModelForm):
                     'picture','titulo','descripcion','user',
                     ]
         widgets = {
-            'picture': FileInput(attrs={'class': 'form-control form-space','required':'required'}),
+            'picture': FileInput(attrs={'class': 'form-control form-space'}),
             'titulo': TextInput(attrs={'class': 'form-control form-space','required':'required'}),
             'descripcion': Textarea(attrs={'cols': 23, 'rows': 2,'class':'form-control form-space','required':'required'}),
         }
 
+class FormResponsabilidadSocial(ModelForm):
+    class Meta:
+        model = ResponsabilidadSocial
+        fields  =  [
+                    'picture','titulo','descripcion','user',
+                    ]
+        widgets = {
+            'picture': FileInput(attrs={'class': 'form-control form-space'}),
+            'titulo': TextInput(attrs={'class': 'form-control form-space','required':'required'}),
+            'descripcion': Textarea(attrs={'cols': 23, 'rows': 2,'class':'form-control form-space','required':'required'}),
+        }
 
 class FormBanner(ModelForm):
     class Meta:

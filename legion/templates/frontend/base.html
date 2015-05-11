@@ -85,12 +85,17 @@
         <li data-target="#myCarousel" data-slide-to="2"></li>
       </ol>
       <div class="carousel-inner" role="listbox">
-        <div class="item active">
+        {% for item in portadas %}
+        <div class="item {{item.descripcion}}">
+          <img src="{{MEDIA_URL}}{{item.imagen}}"  alt="{{item.titulo}}" />
+        </div>
+        {% endfor %}
+        <!-- <div class="item active">
           <img src="{% static 'img/portada/img_portada1.jpg' %}"  alt="First slide" />
         </div>
         <div class="item">
           <img src="{% static 'img/portada/img_portada3.jpg' %}" alt="Second slide" />
-        </div>
+        </div> -->
       </div>
       <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>

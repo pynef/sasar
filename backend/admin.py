@@ -9,7 +9,7 @@ from backend.models import JuntaDirectiva
 from backend.models import GaleriaFotos
 from backend.models import Cargo
 from backend.models import Noticias
-from backend.models import Banner, Fotos
+from backend.models import Banner, Fotos, Portadas, ResponsabilidadSocial, VideoPortada
 
 admin.site.register(Categoria)
 admin.site.register(Socio)
@@ -22,3 +22,6 @@ admin.site.register(Cargo)
 admin.site.register(Noticias)
 admin.site.register(Banner)
 admin.site.register(Fotos)
+admin.site.register(Portadas)
+admin.site.register(ResponsabilidadSocial)
+admin.site.register(VideoPortada)
