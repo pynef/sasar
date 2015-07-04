@@ -50,9 +50,9 @@
                   <a href="{% url 'quienes_somos' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Quienes Somos <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
                     <li id="socios"><a href="{% url 'socios' %}">Socios</a></li>
-                    <li id="f_junta_directiva"><a href="">Junta Directiva</a></li>
-                    <li id="junta_fiscales"><a href="">Junta Fiscales</a></li>
-                    <li id="comite_damas"><a href="">Comite Damas</a></li>
+                    <li id="f_junta_directiva"><a href="{% url 'f_junta_directiva' %}">Junta Directiva</a></li>
+                    <li id="junta_fiscales"><a href="{% url 'junta_fiscales' %}">Junta Fiscales</a></li>
+                    <li id="comite_damas"><a href="{% url 'comite_damas' %}">Comite Damas</a></li>
                   </ul>
                 </li>
                 <!-- <li id="responsabilidad_social"><a href="{% url 'responsabilidad_social' %}">Responsabilidad Social</a></li> -->
@@ -61,18 +61,18 @@
                   <ul class="dropdown-menu" role="menu">
                     <li class="divider"></li>
                     <li class="dropdown-header">SASAR</li>
-                    <li id="f_carnavales"><a href="">F. Carnavales</a></li>
-                    <li id="p_28_julio"><a href="">Parrilada 28 de Julio</a></li>
-                    <li id="f_patronal"><a href="">F. Patronal</a></li>
-                    <li id="navidad_ninios"><a href="">Navidad Niños</a></li>
-                    <li id="donaciones"><a href="">Donaciones</a></li>
+                    <li id="f_carnavales"><a href="{% url 'f_carnavales' %}">F. Carnavales</a></li>
+                    <li id="p_28_julio"><a href="{% url 'p_28_julio' %}">Parrilada 28 de Julio</a></li>
+                    <li id="f_patronal"><a href="{% url 'f_patronal' %}">F. Patronal</a></li>
+                    <li id="navidad_ninios"><a href="{% url 'navidad_ninios' %}">Navidad Niños</a></li>
+                    <li id="donaciones"><a href="{% url 'donaciones' %}">Donaciones</a></li>
                     <li class="divider"></li>
                     <li class="dropdown-header">CODAM</li>
-                    <li id="truchada_2013"><a href="">Truchada Deportiva 2013</a></li>
-                    <li id="d_navidad_2013"><a href="">D. Navidad 2013</a></li>
-                    <li id="d_escolares"><a href="">D. Utiles Escolares 2014</a></li>
-                    <li id="baile_social"><a href="">Baile Social</a></li>
-                    <li id="d_navidad_2014"><a href="">D. Navidad 2014</a></li>
+                    <li id="truchada_2013"><a href="{% url 'truchada_2013' %}">Truchada Deportiva 2013</a></li>
+                    <li id="d_navidad_2013"><a href="{% url 'd_navidad_2013' %}">D. Navidad 2013</a></li>
+                    <li id="d_escolares"><a href="{% url 'd_escolares' %}">D. Utiles Escolares 2014</a></li>
+                    <li id="baile_social"><a href="{% url 'baile_social' %}">Baile Social</a></li>
+                    <li id="d_navidad_2014"><a href="{% url 'd_navidad_2014' %}">D. Navidad 2014</a></li>
                   </ul>
 
                 </li>
@@ -106,13 +106,13 @@
                 <li id="informacion_privada" class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">I. Privada<span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
-                    <li id="balance_economico"><a href="">Balance Economico</a></li>
-                    <li id="estado_socio"><a href="">Estado De Socio</a></li>
+                    <li id="balance_economico"><a href="{% url 'balance_economico' %}">Balance Economico</a></li>
+                    <li id="estado_socio"><a href="{% url 'estado_socio' %}">Estado De Socio</a></li>
                     <li class="divider"></li>
                     <li class="dropdown-header">Documentos Gestion</li>
-                    <li id="resoluciones"><a href="">Resoluciones</a></li>
-                    <li id="informeT"><a href="">Informes</a></li>
-                    <li id="actas"><a href="">Actas</a></li>
+                    <li id="resoluciones"><a href="{% url 'resoluciones' %}">Resoluciones</a></li>
+                    <li id="informeT"><a href="{% url 'informeT' %}">Informes</a></li>
+                    <li id="actas"><a href="{% url 'actas' %}">Actas</a></li>
                   </ul>
                 </li>
                 {% if user.is_authenticated %}
